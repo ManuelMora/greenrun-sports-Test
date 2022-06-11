@@ -1,0 +1,72 @@
+name: develop
+
+on:
+  push:
+    branches: [develop]
+env:
+  language: javascript
+
+jobs:
+  install-dev-dependencies:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Restore or save cache for Dev Dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: npm-node-modules-dev
+        with:
+          path: node_modules
+          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-dev
+      - name: Install Dependencies
+        run: |
+          if [ -d "node_modules" ]; then
+            echo 'Dependencies already exists!'
+          else
+            npm ci
+          fi
+  build:
+    runs-on: ubuntu-20.04
+    needs: install-dev-dependencies
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Restore or save cache for Dev Dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: npm-node-modules-dev
+        with:
+          path: node_modules
+          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-dev
+      - name: Generate build folder
+        run: |
+          npm run build
+  test:
+    runs-on: ubuntu-20.04
+    needs: [install-dev-dependencies, build]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Restore or save cache for Dev Dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: npm-node-modules-dev
+        with:
+          path: node_modules
+          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-dev
+      - name: Ejecutar linter
+        run: npm run lint
+      - name: Running Test
+        run: |
+          npm run coverage
+          npm run coverage:report
