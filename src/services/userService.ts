@@ -45,8 +45,8 @@ export default class UserService {
     public static getUserById(id: number): Promise<IResponse> {
         return new Promise(async (resolve, reject) => {
             try {
-                const usersList = await databaseClient<IUser>('users').where({ id }).select().limit(1);
-                resolve({ status: 200, data: usersList })
+                const userMatch = await databaseClient<IUser>('users').where({ id }).select().limit(1);
+                resolve({ status: 200, data: userMatch[0] })
             } catch (error: any) {
                 debug('error when try get user: %s', error);
                 reject(error);

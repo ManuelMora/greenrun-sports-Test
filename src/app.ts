@@ -2,6 +2,8 @@ import express from 'express';
 import logger from 'morgan';
 import config from './config';
 // Controllers
+import cityController from './controllers/cityController';
+import countryController from './controllers/countryController';
 import userController from './controllers/userController';
 
 const app = express();
@@ -28,5 +30,7 @@ app.use((_req, res, next) => {
 });
 
 app.use(`${fullApiPath}/users`, userController);
+app.use(`${fullApiPath}/cities`, cityController);
+app.use(`${fullApiPath}/countries`, countryController);
 
 export default app;
