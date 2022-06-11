@@ -52,7 +52,7 @@ jobs:
           npm run build
   test:
     runs-on: ubuntu-20.04
-    needs: install-dev-dependencies
+    needs: [install-dev-dependencies, build]
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 14.x
@@ -72,8 +72,3 @@ jobs:
         run: |
           npm run coverage
           npm run coverage:report
-      - name: Share coverage/lcov.info
-        uses: actions/upload-artifact@v1
-        with:
-          name: coverage
-          path: coverage
