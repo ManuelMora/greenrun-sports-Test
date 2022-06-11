@@ -1,5 +1,5 @@
 export default interface ICountry {
-    id: number;
+    id?: number;
     name: string;
-    country_status: boolean;
+    country_status?: boolean;
 }
