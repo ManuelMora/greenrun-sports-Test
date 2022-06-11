@@ -6,6 +6,9 @@ yarn-debug.log*
 yarn-error.log*
 .vscode
 
+# nyc test coverage
+.nyc_output
+
 # Typecript TSC
 build
 build*
