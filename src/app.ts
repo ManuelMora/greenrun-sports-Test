@@ -1,6 +1,8 @@
 import express from 'express';
+import swaggerUi from 'swagger-ui-express';
 import logger from 'morgan';
 import config from './config';
+const swaggerDocument = require('../static/greenrun-sports-V1-OAS.json');
 // Controllers
 import cityController from './controllers/cityController';
 import countryController from './controllers/countryController';
@@ -16,6 +18,7 @@ const fullApiPath = `${apiPath}/V1`;
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use('/api-docs', swaggerUi.serve);
 
 app.use((_req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -31,6 +34,8 @@ app.use((_req, res, next) => {
     res.header('Allow', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     next();
 });
+
+app.get(`/api-docs`, swaggerUi.setup(swaggerDocument));
 
 app.use(`${fullApiPath}/cities`, cityController);
 app.use(`${fullApiPath}/countries`, countryController);

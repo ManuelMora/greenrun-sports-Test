@@ -1,0 +1,793 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Greenrun Sports API",
+    "version": "1.0"
+  },
+  "servers": [{ "url": "http://localhost:8090/V1" }],
+  "paths": {
+    "/countries": {
+      "summary": "Countries",
+      "description": "Resources to manage a countries",
+      "get": {
+        "tags": ["Countries"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountriesResponse"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "summary": "endpoint to get countries",
+        "description": "Get all list from system countries"
+      },
+      "post": {
+        "tags": ["Countries"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BodyCountry"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountryCreateResponse"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "summary": "endpoint to create a country",
+        "description": "create new system country"
+      }
+    },
+    "/countries/{id}": {
+      "summary": "Countries",
+      "description": "Resources to manage a countries",
+      "get": {
+        "tags": ["Countries"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountryResponse"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Country id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to get country by Id",
+        "description": "Get info from system country"
+      },
+      "put": {
+        "tags": ["Countries"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BodyCountry"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountryUpdateResponse"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Country id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to update country",
+        "description": "update a system country"
+      },
+      "delete": {
+        "tags": ["Countries"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountryDeleteResponse"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Country id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to delete country",
+        "description": "delete a system country"
+      }
+    },
+    "/cities": {
+      "summary": "Cities",
+      "description": "Resources to manage a Cities",
+      "get": {
+        "tags": ["Cities"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CitiesResponse"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "summary": "endpoint to get Cities",
+        "description": "Get all list from system Cities"
+      },
+      "post": {
+        "tags": ["Cities"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BodyCity"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CityCreateResponse"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "summary": "endpoint to create a city",
+        "description": "create new system city"
+      }
+    },
+    "/cities/{id}": {
+      "summary": "Cities",
+      "description": "Resources to manage a countries",
+      "get": {
+        "tags": ["Cities"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CityResponse"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "City id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to get City by Id",
+        "description": "Get info from system City"
+      },
+      "put": {
+        "tags": ["Cities"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BodyCity"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CityUpdateResponse"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "City id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to update City",
+        "description": "update a system City"
+      },
+      "delete": {
+        "tags": ["Cities"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CityDeleteResponse"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "City id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to delete City",
+        "description": "delete a system City"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BodyCountry": {
+        "title": "Root Type for BodyCountry",
+        "description": "Body to create a country",
+        "required": ["name"],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "United States"
+        },
+        "additionalProperties": false
+      },
+      "CountriesResponse": {
+        "title": "Root Type for CountriesResponse",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "rows": {
+                "description": "data rows",
+                "type": "array"
+              },
+              "total": {
+                "format": "int32",
+                "description": "count total rows",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "rows": [
+              {
+                "id": 1,
+                "name": "United States",
+                "country_status": 1
+              },
+              {
+                "id": 2,
+                "name": "Brazil",
+                "country_status": 1
+              }
+            ],
+            "total": 2
+          }
+        }
+      },
+      "CountryResponse": {
+        "title": "Root Type for CountryResponse",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "id": {
+                "format": "int32",
+                "description": "data rows",
+                "type": "integer"
+              },
+              "name": {
+                "description": "country name",
+                "type": "string"
+              },
+              "country_status": {
+                "format": "int32",
+                "description": "country status",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "id": 1,
+            "name": "United States",
+            "country_status": 1
+          }
+        }
+      },
+      "CountryCreateResponse": {
+        "title": "Root Type for CountryCreateResponse",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "country created."
+        }
+      },
+      "CountryUpdateResponse": {
+        "title": "Root Type for CountryUpdateResponse",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "country updated."
+        }
+      },
+      "CountryDeleteResponse": {
+        "title": "Root Type for CountryDeleteResponse",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "country deleted."
+        }
+      },
+      "BodyCity": {
+        "title": "Root Type for BodyCity",
+        "description": "Body to create a City",
+        "required": ["name"],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "country_id": {
+            "format": "int32",
+            "description": "country id",
+            "type": "integer"
+          }
+        },
+        "example": {
+          "name": "Texas",
+          "country_id": 1
+        },
+        "additionalProperties": false
+      },
+      "CitiesResponse": {
+        "title": "Root Type for CitiesResponse",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "rows": {
+                "description": "data rows",
+                "type": "array"
+              },
+              "total": {
+                "format": "int32",
+                "description": "count total rows",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "rows": [
+              {
+                "id": 1,
+                "name": "Texas",
+                "country_id": 1,
+                "country": "United States",
+                "city_status": 1
+              }
+            ],
+            "total": 1
+          }
+        }
+      },
+      "CityResponse": {
+        "title": "Root Type for CityResponse",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "id": {
+                "format": "int32",
+                "description": "data rows",
+                "type": "integer"
+              },
+              "name": {
+                "description": "city name",
+                "type": "string"
+              },
+              "country_id": {
+                "format": "int32",
+                "description": "country id",
+                "type": "integer"
+              },
+              "country": {
+                "description": "country name",
+                "type": "string"
+              },
+              "city_status": {
+                "format": "int32",
+                "description": "city status",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "id": 1,
+            "name": "Texas",
+            "country_id": 1,
+            "country": "United States",
+            "city_status": 1
+          }
+        }
+      },
+      "CityCreateResponse": {
+        "title": "Root Type for CityCreateResponse",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "city created."
+        }
+      },
+      "CityUpdateResponse": {
+        "title": "Root Type for CityUpdateResponse",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "city updated."
+        }
+      },
+      "CityDeleteResponse": {
+        "title": "Root Type for CityDeleteResponse",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "city deleted."
+        }
+      },
+      "APIResponse": {
+        "title": "Root Type for APIResponse",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "Test passed"
+        }
+      },
+      "APIErrorResponse": {
+        "title": "Root Type for ApiErrorResponse",
+        "description": "Error response from API",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 500,
+          "message": "Error"
+        }
+      }
+    },
+    "responses": {
+      "simpleResponse": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/APIResponse"
+            }
+          }
+        },
+        "description": "a simple response"
+      }
+    }
+  }
+}
