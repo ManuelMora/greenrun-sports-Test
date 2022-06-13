@@ -4,7 +4,6 @@ import IRolePermission from '../models/IRolePermission';
 import RolePermissionService from '../services/rolePermissionService';
 
 const rolePermissionController = Router();
-const debug = debugLib('greenrun-sports:rolePermissionController');
 
 rolePermissionController.post(
     '/',
