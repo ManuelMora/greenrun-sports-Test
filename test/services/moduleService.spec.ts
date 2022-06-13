@@ -1,18 +1,20 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import ICountry from '../../src/models/ICountry';
-import CountryService from '../../src/services/countryService';
+import IModule from '../../src/models/IModule';
+import ModuleService from '../../src/services/moduleService';
 import { databaseClient } from '../../src/services/databaseService';
 
-describe('CountryService', () => {
-    const mockCountry: ICountry = {
-        name: 'Colombia',
+describe('ModuleService', () => {
+    const mockModule: IModule = {
+        name: 'admin',
+        description: 'module to manage admins',
     };
-    const mockCountriesList = [
+    const mockModulesList = [
         {
             id: 1,
-            name: 'Colombia',
-            country_status: 1,
+            name: 'users',
+            description: 'module to manage users',
+            status: 1,
         },
     ];
 
@@ -20,29 +22,29 @@ describe('CountryService', () => {
         sinon.restore();
     });
 
-    it('should create country', async () => {
+    it('should create module', async () => {
         const insertStub = sinon.stub().returnsThis();
         sinon.stub(databaseClient, 'from').callsFake((): any => {
             return {
                 insert: insertStub,
             };
         });
-        const createCountryTest = await CountryService.createCountry(mockCountry);
-        expect(createCountryTest.data).equal('country created.');
+        const createModuleTest = await ModuleService.createModule(mockModule);
+        expect(createModuleTest.data).equal('module created.');
     });
 
-    it('should failed create country', async () => {
+    it('should failed create module', async () => {
         sinon.stub(databaseClient, 'from').callsFake(() => {
             throw new Error('error');
         });
         try {
-            await CountryService.createCountry(mockCountry);
+            await ModuleService.createModule(mockModule);
         } catch (error: any) {
             expect(error.message).to.equal('error');
         }
     });
 
-    it('should update country', async () => {
+    it('should update module', async () => {
         const whereStub = sinon.stub().returnsThis();
         const updateStub = sinon.stub().returnsThis();
         sinon.stub(databaseClient, 'from').callsFake((): any => {
@@ -51,49 +53,49 @@ describe('CountryService', () => {
                 update: updateStub,
             };
         });
-        const updateCountryTest = await CountryService.updateCountry(mockCountry);
-        expect(updateCountryTest.data).equal('country updated.');
+        const updateModuleTest = await ModuleService.updateModule(mockModule);
+        expect(updateModuleTest.data).equal('module updated.');
     });
 
-    it('should failed update country', async () => {
+    it('should failed update module', async () => {
         sinon.stub(databaseClient, 'from').callsFake(() => {
             throw new Error('error');
         });
         try {
-            await CountryService.updateCountry(mockCountry);
+            await ModuleService.updateModule(mockModule);
         } catch (error: any) {
             expect(error.message).to.equal('error');
         }
     });
 
-    it('should get countries', async () => {
+    it('should get modules', async () => {
         const whereStub = sinon.stub().returnsThis();
-        const selectStub = sinon.stub().resolves(mockCountriesList);
+        const selectStub = sinon.stub().resolves(mockModulesList);
         sinon.stub(databaseClient, 'from').callsFake((): any => {
             return {
                 where: whereStub,
                 select: selectStub,
             };
         });
-        const getCountriesTest = await CountryService.getCountries();
-        expect(getCountriesTest.data.total).equal(1);
+        const getmodulesTest = await ModuleService.getModules();
+        expect(getmodulesTest.data.total).equal(1);
     });
 
-    it('should failed get countries', async () => {
+    it('should failed get modules', async () => {
         sinon.stub(databaseClient, 'from').callsFake(() => {
             throw new Error('error');
         });
         try {
-            await CountryService.getCountries();
+            await ModuleService.getModules();
         } catch (error: any) {
             expect(error.message).to.equal('error');
         }
     });
 
-    it('should get country by Id', async () => {
+    it('should get module by Id', async () => {
         const whereStub = sinon.stub().returnsThis();
         const selectStub = sinon.stub().returnsThis();
-        const limitStub = sinon.stub().resolves(mockCountriesList);
+        const limitStub = sinon.stub().resolves(mockModulesList);
         sinon.stub(databaseClient, 'from').callsFake((): any => {
             return {
                 where: whereStub,
@@ -101,22 +103,22 @@ describe('CountryService', () => {
                 limit: limitStub,
             };
         });
-        const getCountryByIdTest = await CountryService.getCountryById(1);
-        expect(getCountryByIdTest.data).equal(mockCountriesList[0]);
+        const getmoduleByIdTest = await ModuleService.getModuleById(1);
+        expect(getmoduleByIdTest.data).equal(mockModulesList[0]);
     });
 
-    it('should failed get country by Id', async () => {
+    it('should failed get module by Id', async () => {
         sinon.stub(databaseClient, 'from').callsFake(() => {
             throw new Error('error');
         });
         try {
-            await CountryService.getCountryById(1);
+            await ModuleService.getModuleById(1);
         } catch (error: any) {
             expect(error.message).to.equal('error');
         }
     });
 
-    it('should delete country', async () => {
+    it('should delete module', async () => {
         const whereStub = sinon.stub().returnsThis();
         const updateStub = sinon.stub().returnsThis();
         sinon.stub(databaseClient, 'from').callsFake((): any => {
@@ -125,16 +127,16 @@ describe('CountryService', () => {
                 update: updateStub,
             };
         });
-        const updateCountryTest = await CountryService.deleteCountry(1);
-        expect(updateCountryTest.data).equal('country deleted.');
+        const updatemoduleTest = await ModuleService.deleteModule(1);
+        expect(updatemoduleTest.data).equal('module deleted.');
     });
 
-    it('should failed delete country', async () => {
+    it('should failed delete module', async () => {
         sinon.stub(databaseClient, 'from').callsFake(() => {
             throw new Error('error');
         });
         try {
-            await CountryService.deleteCountry(1);
+            await ModuleService.deleteModule(1);
         } catch (error: any) {
             expect(error.message).to.equal('error');
         }
