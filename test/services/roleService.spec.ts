@@ -1,18 +1,20 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import ICountry from '../../src/models/ICountry';
-import CountryService from '../../src/services/countryService';
+import IRole from '../../src/models/IRole';
+import RoleService from '../../src/services/roleService';
 import { databaseClient } from '../../src/services/databaseService';
 
-describe('CountryService', () => {
-    const mockCountry: ICountry = {
-        name: 'Colombia',
+describe('RoleService', () => {
+    const mockRole: IRole = {
+        name: 'admin',
+        description: 'Role to manage admins',
     };
-    const mockCountriesList = [
+    const mockRolesList = [
         {
             id: 1,
-            name: 'Colombia',
-            country_status: 1,
+            name: 'admin',
+            description: 'admin role',
+            status: 1,
         },
     ];
 
@@ -20,29 +22,29 @@ describe('CountryService', () => {
         sinon.restore();
     });
 
-    it('should create country', async () => {
+    it('should create role', async () => {
         const insertStub = sinon.stub().returnsThis();
         sinon.stub(databaseClient, 'from').callsFake((): any => {
             return {
                 insert: insertStub,
             };
         });
-        const createCountryTest = await CountryService.createCountry(mockCountry);
-        expect(createCountryTest.data).equal('country created.');
+        const createRoleTest = await RoleService.createRole(mockRole);
+        expect(createRoleTest.data).equal('role created.');
     });
 
-    it('should failed create country', async () => {
+    it('should failed create role', async () => {
         sinon.stub(databaseClient, 'from').callsFake(() => {
             throw new Error('error');
         });
         try {
-            await CountryService.createCountry(mockCountry);
+            await RoleService.createRole(mockRole);
         } catch (error: any) {
             expect(error.message).to.equal('error');
         }
     });
 
-    it('should update country', async () => {
+    it('should update role', async () => {
         const whereStub = sinon.stub().returnsThis();
         const updateStub = sinon.stub().returnsThis();
         sinon.stub(databaseClient, 'from').callsFake((): any => {
@@ -51,49 +53,49 @@ describe('CountryService', () => {
                 update: updateStub,
             };
         });
-        const updateCountryTest = await CountryService.updateCountry(mockCountry);
-        expect(updateCountryTest.data).equal('country updated.');
+        const updateRoleTest = await RoleService.updateRole(mockRole);
+        expect(updateRoleTest.data).equal('role updated.');
     });
 
-    it('should failed update country', async () => {
+    it('should failed update role', async () => {
         sinon.stub(databaseClient, 'from').callsFake(() => {
             throw new Error('error');
         });
         try {
-            await CountryService.updateCountry(mockCountry);
+            await RoleService.updateRole(mockRole);
         } catch (error: any) {
             expect(error.message).to.equal('error');
         }
     });
 
-    it('should get countries', async () => {
+    it('should get roles', async () => {
         const whereStub = sinon.stub().returnsThis();
-        const selectStub = sinon.stub().resolves(mockCountriesList);
+        const selectStub = sinon.stub().resolves(mockRolesList);
         sinon.stub(databaseClient, 'from').callsFake((): any => {
             return {
                 where: whereStub,
                 select: selectStub,
             };
         });
-        const getCountriesTest = await CountryService.getCountries();
-        expect(getCountriesTest.data.total).equal(1);
+        const getRolesTest = await RoleService.getRoles();
+        expect(getRolesTest.data.total).equal(1);
     });
 
-    it('should failed get countries', async () => {
+    it('should failed get roles', async () => {
         sinon.stub(databaseClient, 'from').callsFake(() => {
             throw new Error('error');
         });
         try {
-            await CountryService.getCountries();
+            await RoleService.getRoles();
         } catch (error: any) {
             expect(error.message).to.equal('error');
         }
     });
 
-    it('should get country by Id', async () => {
+    it('should get role by Id', async () => {
         const whereStub = sinon.stub().returnsThis();
         const selectStub = sinon.stub().returnsThis();
-        const limitStub = sinon.stub().resolves(mockCountriesList);
+        const limitStub = sinon.stub().resolves(mockRolesList);
         sinon.stub(databaseClient, 'from').callsFake((): any => {
             return {
                 where: whereStub,
@@ -101,22 +103,22 @@ describe('CountryService', () => {
                 limit: limitStub,
             };
         });
-        const getCountryByIdTest = await CountryService.getCountryById(1);
-        expect(getCountryByIdTest.data).equal(mockCountriesList[0]);
+        const getRoleByIdTest = await RoleService.getRoleById(1);
+        expect(getRoleByIdTest.data).equal(mockRolesList[0]);
     });
 
-    it('should failed get country by Id', async () => {
+    it('should failed get role by Id', async () => {
         sinon.stub(databaseClient, 'from').callsFake(() => {
             throw new Error('error');
         });
         try {
-            await CountryService.getCountryById(1);
+            await RoleService.getRoleById(1);
         } catch (error: any) {
             expect(error.message).to.equal('error');
         }
     });
 
-    it('should delete country', async () => {
+    it('should delete role', async () => {
         const whereStub = sinon.stub().returnsThis();
         const updateStub = sinon.stub().returnsThis();
         sinon.stub(databaseClient, 'from').callsFake((): any => {
@@ -125,16 +127,16 @@ describe('CountryService', () => {
                 update: updateStub,
             };
         });
-        const updateCountryTest = await CountryService.deleteCountry(1);
-        expect(updateCountryTest.data).equal('country deleted.');
+        const deleteRoleTest = await RoleService.deleteRole(1);
+        expect(deleteRoleTest.data).equal('role deleted.');
     });
 
-    it('should failed delete country', async () => {
+    it('should failed delete role', async () => {
         sinon.stub(databaseClient, 'from').callsFake(() => {
             throw new Error('error');
         });
         try {
-            await CountryService.deleteCountry(1);
+            await RoleService.deleteRole(1);
         } catch (error: any) {
             expect(error.message).to.equal('error');
         }

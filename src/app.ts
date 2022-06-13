@@ -4,6 +4,9 @@ import config from './config';
 // Controllers
 import cityController from './controllers/cityController';
 import countryController from './controllers/countryController';
+import moduleController from './controllers/moduleController';
+import roleController from './controllers/roleController';
+import rolePermissionController from './controllers/rolePermissionController';
 import userController from './controllers/userController';
 
 const app = express();
@@ -29,8 +32,11 @@ app.use((_req, res, next) => {
     next();
 });
 
-app.use(`${fullApiPath}/users`, userController);
 app.use(`${fullApiPath}/cities`, cityController);
 app.use(`${fullApiPath}/countries`, countryController);
+app.use(`${fullApiPath}/modules`, moduleController);
+app.use(`${fullApiPath}/roles`, roleController);
+app.use(`${fullApiPath}/permissions`, rolePermissionController);
+app.use(`${fullApiPath}/users`, userController);
 
 export default app;

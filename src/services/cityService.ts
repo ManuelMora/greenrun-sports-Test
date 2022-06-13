@@ -21,9 +21,7 @@ export default class CityService {
     public static updateCity(city: ICity): Promise<IResponse> {
         return new Promise(async (resolve, reject) => {
             try {
-                await databaseClient.from('cities')
-                    .where({ id: city.id })
-                    .update(city);
+                await databaseClient.from('cities').where({ id: city.id }).update(city);
                 resolve({ status: 200, data: 'city updated.' });
             } catch (error: any) {
                 debug('error when try updated city: %s', error);
@@ -35,7 +33,8 @@ export default class CityService {
     public static getCities(): Promise<IResponse> {
         return new Promise(async (resolve, reject) => {
             try {
-                const citiesList = await databaseClient.from('cities')
+                const citiesList = await databaseClient
+                    .from('cities')
                     .join('countries', 'cities.country_id', '=', 'countries.id')
                     .where({ city_status: true })
                     .select(
@@ -59,7 +58,8 @@ export default class CityService {
     public static getCityById(id: number): Promise<IResponse> {
         return new Promise(async (resolve, reject) => {
             try {
-                const cityMatch = await databaseClient.from('cities')
+                const cityMatch = await databaseClient
+                    .from('cities')
                     .join('countries', 'cities.country_id', '=', 'countries.id')
                     .where('cities.id', id)
                     .select(
@@ -81,7 +81,8 @@ export default class CityService {
     public static deleteCity(id: number): Promise<IResponse> {
         return new Promise(async (resolve, reject) => {
             try {
-                await databaseClient.from('cities')
+                await databaseClient
+                    .from('cities')
                     .where({ id })
                     .update({ city_status: false });
                 resolve({ status: 200, data: 'city deleted.' });
