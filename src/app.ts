@@ -9,6 +9,7 @@ import countryController from './controllers/countryController';
 import moduleController from './controllers/moduleController';
 import roleController from './controllers/roleController';
 import rolePermissionController from './controllers/rolePermissionController';
+import sportController from './controllers/sportController';
 import userController from './controllers/userController';
 
 const app = express();
@@ -40,8 +41,9 @@ app.get(`/api-docs`, swaggerUi.setup(swaggerDocument));
 app.use(`${fullApiPath}/cities`, cityController);
 app.use(`${fullApiPath}/countries`, countryController);
 app.use(`${fullApiPath}/modules`, moduleController);
-app.use(`${fullApiPath}/roles`, roleController);
 app.use(`${fullApiPath}/permissions`, rolePermissionController);
+app.use(`${fullApiPath}/roles`, roleController);
+app.use(`${fullApiPath}/sports`, sportController);
 app.use(`${fullApiPath}/users`, userController);
 
 export default app;

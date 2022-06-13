@@ -67,7 +67,6 @@ describe('RolePermissionService', () => {
             };
         });
         const getRolesTest = await RolePermissionService.getPermissionsFromRoles();
-        console.log('##########', getRolesTest);
         expect(getRolesTest.data.total).equal(1);
     });
 
@@ -117,7 +116,9 @@ describe('RolePermissionService', () => {
         });
         const deletePermissionRoleTest =
             await RolePermissionService.deletePermissionFromRole(1);
-        expect(deletePermissionRoleTest.data).equal('permission from role deleted.');
+        expect(deletePermissionRoleTest.data).equal(
+            'permission from role deleted.'
+        );
     });
 
     it('should failed delete permission from role', async () => {
