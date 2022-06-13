@@ -941,6 +941,202 @@
         "summary": "endpoint to delete specifi permission from role",
         "description": "delete a permission from system role"
       }
+    },
+    "/sports": {
+      "summary": "Sports",
+      "description": "Resources to manage a sports",
+      "get": {
+        "tags": ["Sports"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sports.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "summary": "endpoint to get sports",
+        "description": "Get all list from system sports"
+      },
+      "post": {
+        "tags": ["Sports"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Sports.Sport"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sports.Create.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "summary": "endpoint to create a sport",
+        "description": "create new system sport"
+      }
+    },
+    "/sports/{id}": {
+      "summary": "Sports",
+      "description": "Resources to manage a sports",
+      "get": {
+        "tags": ["Sports"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sports.Sport.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Sport id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to get sport by Id",
+        "description": "Get info from system sport"
+      },
+      "put": {
+        "tags": ["Sports"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Sports.Sport"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sports.Update.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Sport id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to update sport",
+        "description": "update a system sport"
+      },
+      "delete": {
+        "tags": ["Sports"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sports.Delete.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Sport id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to delete sport",
+        "description": "delete a system sport"
+      }
     }
   },
   "components": {
@@ -1780,6 +1976,184 @@
         "example": {
           "status": 200,
           "data": "permission from role deleted."
+        }
+      },
+      "Sports.Sport": {
+        "title": "Sports.Sport",
+        "description": "Body to create a sport",
+        "required": ["name", "description"],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "allowDraw": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "integer"
+          }
+        },
+        "example": {
+          "name": "soccer",
+          "description": "soccer sport"
+        },
+        "additionalProperties": false
+      },
+      "Sports.Response": {
+        "title": "Sports.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "rows": {
+                "description": "data rows",
+                "type": "array"
+              },
+              "total": {
+                "format": "int32",
+                "description": "count total rows",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "rows": [
+              {
+                "id": 1,
+                "name": "soccer",
+                "description": "soccer sport",
+                "allowDraw": 1,
+                "status": 1
+              }
+            ],
+            "total": 1
+          }
+        }
+      },
+      "Sports.Sport.Response": {
+        "title": "Sports.Sport.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "id": {
+                "format": "int32",
+                "description": "sport id",
+                "type": "integer"
+              },
+              "name": {
+                "description": "sport name",
+                "type": "string"
+              },
+              "description": {
+                "description": "sport description",
+                "type": "string"
+              },
+              "allowDraw": {
+                "format": "int32",
+                "description": "sport status",
+                "type": "integer"
+              },
+              "status": {
+                "format": "int32",
+                "description": "sport status",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "id": 1,
+            "name": "soccer",
+            "description": "soccer sport",
+            "allowDraw": 1,
+            "status": 1
+          }
+        }
+      },
+      "Sports.Create.Response": {
+        "title": "Sports.Create.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "sport created."
+        }
+      },
+      "Sports.Update.Response": {
+        "title": "Sports.Update.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "sport updated."
+        }
+      },
+      "Sports.Delete.Response": {
+        "title": "Sports.Delete.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "sport deleted."
         }
       },
       "Response": {
