@@ -6,7 +6,7 @@ export default class OpenApiValidatorProvider {
     public static getValidator() {
         const openApiSpecificationFile = path.join(
             __dirname,
-            '../static/greenrun-sports-V1-OAS.json'
+            '../../static/greenrun-sports-V1-OAS.json'
         );
         const openApiSpecification = fs.readFileSync(
             openApiSpecificationFile,
