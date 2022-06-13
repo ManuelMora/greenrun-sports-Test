@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
+    "start:prod": "node ./build/server",
     "start": "npm run build && export DEBUG=greenrun-sports:* && node ./build/server",
     "dev": "nodemon --watch src -e ts,js --exec npm run start",
     "test:file": "mocha --timeout 10000 --require ts-node/register",
