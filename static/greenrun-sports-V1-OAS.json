@@ -1618,7 +1618,8 @@
             "type": "integer"
           },
           "role_action": {
-            "type": "integer"
+            "type": "integer",
+            "enum": [1, 2, 3, 4]
           }
         },
         "example": {
