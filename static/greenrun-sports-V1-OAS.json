@@ -16,7 +16,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CountriesResponse"
+                  "$ref": "#/components/schemas/Countries.Response"
                 }
               }
             },
@@ -26,7 +26,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/APIErrorResponse"
+                  "$ref": "#/components/schemas/Response.Error"
                 }
               }
             },
@@ -42,7 +42,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BodyCountry"
+                "$ref": "#/components/schemas/Countries.Country"
               }
             }
           },
@@ -53,7 +53,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CountryCreateResponse"
+                  "$ref": "#/components/schemas/Countries.Create.Response"
                 }
               }
             },
@@ -63,7 +63,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/APIErrorResponse"
+                  "$ref": "#/components/schemas/Response.Error"
                 }
               }
             },
@@ -84,7 +84,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CountryResponse"
+                  "$ref": "#/components/schemas/Countries.Country.Response"
                 }
               }
             },
@@ -94,7 +94,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/APIErrorResponse"
+                  "$ref": "#/components/schemas/Response.Error"
                 }
               }
             },
@@ -121,7 +121,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BodyCountry"
+                "$ref": "#/components/schemas/Countries.Country"
               }
             }
           },
@@ -132,7 +132,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CountryUpdateResponse"
+                  "$ref": "#/components/schemas/Countries.Update.Response"
                 }
               }
             },
@@ -142,7 +142,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/APIErrorResponse"
+                  "$ref": "#/components/schemas/Response.Error"
                 }
               }
             },
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CountryDeleteResponse"
+                  "$ref": "#/components/schemas/Countries.Delete.Response"
                 }
               }
             },
@@ -180,7 +180,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/APIErrorResponse"
+                  "$ref": "#/components/schemas/Response.Error"
                 }
               }
             },
@@ -212,7 +212,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CitiesResponse"
+                  "$ref": "#/components/schemas/Cities.Response"
                 }
               }
             },
@@ -222,7 +222,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/APIErrorResponse"
+                  "$ref": "#/components/schemas/Response.Error"
                 }
               }
             },
@@ -238,7 +238,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BodyCity"
+                "$ref": "#/components/schemas/Cities.City"
               }
             }
           },
@@ -249,7 +249,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CityCreateResponse"
+                  "$ref": "#/components/schemas/Cities.Create.Response"
                 }
               }
             },
@@ -259,7 +259,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/APIErrorResponse"
+                  "$ref": "#/components/schemas/Response.Error"
                 }
               }
             },
@@ -280,7 +280,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CityResponse"
+                  "$ref": "#/components/schemas/Cities.City.Response"
                 }
               }
             },
@@ -290,7 +290,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/APIErrorResponse"
+                  "$ref": "#/components/schemas/Response.Error"
                 }
               }
             },
@@ -317,7 +317,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BodyCity"
+                "$ref": "#/components/schemas/Cities.City"
               }
             }
           },
@@ -328,7 +328,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CityUpdateResponse"
+                  "$ref": "#/components/schemas/Cities.Update.Response"
                 }
               }
             },
@@ -338,7 +338,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/APIErrorResponse"
+                  "$ref": "#/components/schemas/Response.Error"
                 }
               }
             },
@@ -366,7 +366,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CityDeleteResponse"
+                  "$ref": "#/components/schemas/Cities.Delete.Response"
                 }
               }
             },
@@ -376,7 +376,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/APIErrorResponse"
+                  "$ref": "#/components/schemas/Response.Error"
                 }
               }
             },
@@ -397,12 +397,552 @@
         "summary": "endpoint to delete City",
         "description": "delete a system City"
       }
+    },
+    "/modules": {
+      "summary": "Modules",
+      "description": "Resources to manage a modules",
+      "get": {
+        "tags": ["Modules"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Modules.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "summary": "endpoint to get modules",
+        "description": "Get all list from system modules"
+      },
+      "post": {
+        "tags": ["Modules"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Modules.Module"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Modules.Create.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "summary": "endpoint to create a module",
+        "description": "create new system module"
+      }
+    },
+    "/modules/{id}": {
+      "summary": "Modules",
+      "description": "Resources to manage a modules",
+      "get": {
+        "tags": ["Modules"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Modules.Module.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Module id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to get module by Id",
+        "description": "Get info from system module"
+      },
+      "put": {
+        "tags": ["Modules"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Modules.Module"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Modules.Update.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Module id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to update module",
+        "description": "update a system module"
+      },
+      "delete": {
+        "tags": ["Modules"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Modules.Delete.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Module id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to delete module",
+        "description": "delete a system module"
+      }
+    },
+    "/roles": {
+      "summary": "Roles",
+      "description": "Resources to manage a roles",
+      "get": {
+        "tags": ["Roles"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Roles.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "summary": "endpoint to get roles",
+        "description": "Get all list from system roles"
+      },
+      "post": {
+        "tags": ["Roles"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Roles.Role"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Roles.Create.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "summary": "endpoint to create a role",
+        "description": "create new system role"
+      }
+    },
+    "/roles/{id}": {
+      "summary": "Roles",
+      "description": "Resources to manage a roles",
+      "get": {
+        "tags": ["Roles"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Roles.Role.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Role id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to get role by Id",
+        "description": "Get info from system role"
+      },
+      "put": {
+        "tags": ["Roles"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Roles.Role"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Roles.Update.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Role id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to update role",
+        "description": "update a system role"
+      },
+      "delete": {
+        "tags": ["Roles"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Roles.Delete.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Role id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to delete role",
+        "description": "delete a system role"
+      }
+    },
+    "/permissions": {
+      "summary": "Role Permissions",
+      "description": "Resources to manage a permissions from roles",
+      "get": {
+        "tags": ["Role Permissions"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RolePermissions.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "summary": "endpoint to get permissions from all roles",
+        "description": "Get all list from system role permissions"
+      },
+      "post": {
+        "tags": ["Role Permissions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RolePermissions.RolePermission"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RolePermissions.Create.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "summary": "endpoint to create a permission from specific role",
+        "description": "create new system permission from role"
+      }
+    },
+    "/permissions/{role_id}": {
+      "summary": "Roles",
+      "description": "Resources to manage a role permissions",
+      "get": {
+        "tags": ["Role Permissions"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RolePermission.PermissionsRole.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Role id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to get permissions by role Id",
+        "description": "Get permissions from system role"
+      },
+      "delete": {
+        "tags": ["Role Permissions"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RolePermissions.Delete.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Role Permission id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to delete specifi permission from role",
+        "description": "delete a permission from system role"
+      }
     }
   },
   "components": {
     "schemas": {
-      "BodyCountry": {
-        "title": "Root Type for BodyCountry",
+      "Countries.Country": {
+        "title": "Countries.Country",
         "description": "Body to create a country",
         "required": ["name"],
         "type": "object",
@@ -416,8 +956,8 @@
         },
         "additionalProperties": false
       },
-      "CountriesResponse": {
-        "title": "Root Type for CountriesResponse",
+      "Countries.Response": {
+        "title": "Countries.Response",
         "description": "",
         "type": "object",
         "properties": {
@@ -461,8 +1001,8 @@
           }
         }
       },
-      "CountryResponse": {
-        "title": "Root Type for CountryResponse",
+      "Countries.Country.Response": {
+        "title": "Countries.Country.Response",
         "description": "",
         "type": "object",
         "properties": {
@@ -477,7 +1017,7 @@
             "properties": {
               "id": {
                 "format": "int32",
-                "description": "data rows",
+                "description": "country id",
                 "type": "integer"
               },
               "name": {
@@ -501,8 +1041,8 @@
           }
         }
       },
-      "CountryCreateResponse": {
-        "title": "Root Type for CountryCreateResponse",
+      "Countries.Create.Response": {
+        "title": "Countries.Create.Response",
         "description": "",
         "type": "object",
         "properties": {
@@ -521,8 +1061,8 @@
           "data": "country created."
         }
       },
-      "CountryUpdateResponse": {
-        "title": "Root Type for CountryUpdateResponse",
+      "Countries.Update.Response": {
+        "title": "Countries.Update.Response",
         "description": "",
         "type": "object",
         "properties": {
@@ -541,8 +1081,8 @@
           "data": "country updated."
         }
       },
-      "CountryDeleteResponse": {
-        "title": "Root Type for CountryDeleteResponse",
+      "Countries.Delete.Response": {
+        "title": "Countries.Delete.Response",
         "description": "",
         "type": "object",
         "properties": {
@@ -561,8 +1101,8 @@
           "data": "country deleted."
         }
       },
-      "BodyCity": {
-        "title": "Root Type for BodyCity",
+      "Cities.City": {
+        "title": "Cities.City",
         "description": "Body to create a City",
         "required": ["name"],
         "type": "object",
@@ -582,8 +1122,8 @@
         },
         "additionalProperties": false
       },
-      "CitiesResponse": {
-        "title": "Root Type for CitiesResponse",
+      "Cities.Response": {
+        "title": "Cities.Response",
         "description": "",
         "type": "object",
         "properties": {
@@ -624,8 +1164,8 @@
           }
         }
       },
-      "CityResponse": {
-        "title": "Root Type for CityResponse",
+      "Cities.City.Response": {
+        "title": "Cities.City.Response",
         "description": "",
         "type": "object",
         "properties": {
@@ -640,7 +1180,7 @@
             "properties": {
               "id": {
                 "format": "int32",
-                "description": "data rows",
+                "description": "city id",
                 "type": "integer"
               },
               "name": {
@@ -675,8 +1215,8 @@
           }
         }
       },
-      "CityCreateResponse": {
-        "title": "Root Type for CityCreateResponse",
+      "Cities.Create.Response": {
+        "title": "Cities.Create.Response",
         "description": "",
         "type": "object",
         "properties": {
@@ -695,8 +1235,8 @@
           "data": "city created."
         }
       },
-      "CityUpdateResponse": {
-        "title": "Root Type for CityUpdateResponse",
+      "Cities.Update.Response": {
+        "title": "Cities.Update.Response",
         "description": "",
         "type": "object",
         "properties": {
@@ -715,8 +1255,8 @@
           "data": "city updated."
         }
       },
-      "CityDeleteResponse": {
-        "title": "Root Type for CityDeleteResponse",
+      "Cities.Delete.Response": {
+        "title": "Cities.Delete.Response",
         "description": "",
         "type": "object",
         "properties": {
@@ -735,8 +1275,510 @@
           "data": "city deleted."
         }
       },
-      "APIResponse": {
-        "title": "Root Type for APIResponse",
+      "Modules.Module": {
+        "title": "Modules.Module",
+        "description": "Body to create a module",
+        "required": ["name", "description"],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "admin",
+          "description": "module to manage admins"
+        },
+        "additionalProperties": false
+      },
+      "Modules.Response": {
+        "title": "Modules.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "rows": {
+                "description": "data rows",
+                "type": "array"
+              },
+              "total": {
+                "format": "int32",
+                "description": "count total rows",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "rows": [
+              {
+                "id": 1,
+                "name": "users",
+                "description": "module to manage users",
+                "status": 1
+              }
+            ],
+            "total": 1
+          }
+        }
+      },
+      "Modules.Module.Response": {
+        "title": "Modules.Module.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "id": {
+                "format": "int32",
+                "description": "module id",
+                "type": "integer"
+              },
+              "name": {
+                "description": "module name",
+                "type": "string"
+              },
+              "description": {
+                "description": "module description",
+                "type": "string"
+              },
+              "status": {
+                "format": "int32",
+                "description": "module status",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "id": 1,
+            "name": "users",
+            "description": "module to manage users",
+            "status": 1
+          }
+        }
+      },
+      "Modules.Create.Response": {
+        "title": "Modules.Create.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "module created."
+        }
+      },
+      "Modules.Update.Response": {
+        "title": "Modules.Update.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "module updated."
+        }
+      },
+      "Modules.Delete.Response": {
+        "title": "Modules.Delete.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "module deleted."
+        }
+      },
+      "Roles.Role": {
+        "title": "Roles.Role",
+        "description": "Body to create a role",
+        "required": ["name", "description"],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "user",
+          "description": "role from users"
+        },
+        "additionalProperties": false
+      },
+      "Roles.Response": {
+        "title": "Roles.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "rows": {
+                "description": "data rows",
+                "type": "array"
+              },
+              "total": {
+                "format": "int32",
+                "description": "count total rows",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "rows": [
+              {
+                "id": 1,
+                "name": "admin",
+                "description": "admin role",
+                "status": 1
+              }
+            ],
+            "total": 1
+          }
+        }
+      },
+      "Roles.Role.Response": {
+        "title": "Roles.Role.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "id": {
+                "format": "int32",
+                "description": "role id",
+                "type": "integer"
+              },
+              "name": {
+                "description": "role name",
+                "type": "string"
+              },
+              "description": {
+                "description": "role description",
+                "type": "string"
+              },
+              "status": {
+                "format": "int32",
+                "description": "role status",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "id": 1,
+            "name": "admin",
+            "description": "admin role",
+            "status": 1
+          }
+        }
+      },
+      "Roles.Create.Response": {
+        "title": "Roles.Create.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "role created."
+        }
+      },
+      "Roles.Update.Response": {
+        "title": "Roles.Update.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "role updated."
+        }
+      },
+      "Roles.Delete.Response": {
+        "title": "Roles.Delete.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "role deleted."
+        }
+      },
+      "RolePermissions.RolePermission": {
+        "title": "RolePermissions.RolePermission",
+        "description": "Body to create a permission from role",
+        "required": ["role_id", "module_id", "role_action"],
+        "type": "object",
+        "properties": {
+          "role_id": {
+            "type": "integer"
+          },
+          "module_id": {
+            "type": "integer"
+          },
+          "role_action": {
+            "type": "integer"
+          }
+        },
+        "example": {
+          "role_id": 1,
+          "module_id": 2,
+          "role_action": 4
+        },
+        "additionalProperties": false
+      },
+      "RolePermissions.Response": {
+        "title": "RolePermissions.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "rows": {
+                "description": "data rows",
+                "type": "array"
+              },
+              "total": {
+                "format": "int32",
+                "description": "count total rows",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "rows": [
+              {
+                "role_id": 1,
+                "role": "admin",
+                "module_id": 2,
+                "module": "admin",
+                "role_action": 2,
+                "action": "create"
+              }
+            ],
+            "total": 1
+          }
+        }
+      },
+      "RolePermission.PermissionsRole.Response": {
+        "title": "RolePermission.PermissionsRole.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "id": {
+                "format": "int32",
+                "description": "role permission id",
+                "type": "integer"
+              },
+              "role_id": {
+                "format": "int32",
+                "description": "role id",
+                "type": "integer"
+              },
+              "role": {
+                "description": "role name",
+                "type": "string"
+              },
+              "module_id": {
+                "format": "int32",
+                "description": "module id",
+                "type": "integer"
+              },
+              "module": {
+                "description": "module name",
+                "type": "string"
+              },
+              "role_action": {
+                "format": "int32",
+                "description": "role action id",
+                "type": "integer"
+              },
+              "action": {
+                "description": "action name",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "rows": [
+              {
+                "role_id": 1,
+                "role": "admin",
+                "module_id": 2,
+                "module": "admin",
+                "role_action": 2,
+                "action": "create"
+              }
+            ],
+            "total": 1
+          }
+        }
+      },
+      "RolePermissions.Create.Response": {
+        "title": "RolePermissions.Create.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "permission to role created."
+        }
+      },
+      "RolePermissions.Delete.Response": {
+        "title": "RolePermissions.Delete.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "permission from role deleted."
+        }
+      },
+      "Response": {
+        "title": "Response",
         "description": "",
         "type": "object",
         "properties": {
@@ -755,8 +1797,8 @@
           "data": "Test passed"
         }
       },
-      "APIErrorResponse": {
-        "title": "Root Type for ApiErrorResponse",
+      "Response.Error": {
+        "title": "Response.Error",
         "description": "Error response from API",
         "type": "object",
         "properties": {
@@ -782,7 +1824,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/APIResponse"
+              "$ref": "#/components/schemas/Response"
             }
           }
         },
