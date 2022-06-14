@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import swaggerUi from 'swagger-ui-express';
 import logger from 'morgan';
 import config from './config';
@@ -10,6 +10,7 @@ import moduleController from './controllers/moduleController';
 import roleController from './controllers/roleController';
 import rolePermissionController from './controllers/rolePermissionController';
 import sportController from './controllers/sportController';
+import transactionController from './controllers/transactionController';
 import userController from './controllers/userController';
 
 const app = express();
@@ -19,7 +20,6 @@ const fullApiPath = `${apiPath}/V1`;
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use('/api-docs', swaggerUi.serve);
 
 app.use((_req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -36,7 +36,22 @@ app.use((_req, res, next) => {
     next();
 });
 
-app.get(`/api-docs`, swaggerUi.setup(swaggerDocument));
+// Declare Swagger
+app.use(
+    `/api-docs`,
+    (req: any, res: Response, next: NextFunction) => {
+        const serverUrl =
+            config.env === 'dev'
+                ? { url: 'http://localhost:8090/V1' }
+                : { url: 'https://greenrun-api.onrender.com' };
+        swaggerDocument.servers = [serverUrl];
+        req.swaggerDoc = swaggerDocument;
+        next();
+    },
+    swaggerUi.serveFiles(swaggerDocument, {}),
+    swaggerUi.setup()
+);
+app.get('/', (req: Request, res: Response) => res.redirect('/api-docs'));
 
 app.use(`${fullApiPath}/cities`, cityController);
 app.use(`${fullApiPath}/countries`, countryController);
@@ -44,6 +59,7 @@ app.use(`${fullApiPath}/modules`, moduleController);
 app.use(`${fullApiPath}/permissions`, rolePermissionController);
 app.use(`${fullApiPath}/roles`, roleController);
 app.use(`${fullApiPath}/sports`, sportController);
+app.use(`${fullApiPath}/transactions`, transactionController);
 app.use(`${fullApiPath}/users`, userController);
 
 export default app;

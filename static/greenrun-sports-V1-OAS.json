@@ -4,7 +4,7 @@
     "title": "Greenrun Sports API",
     "version": "1.0"
   },
-  "servers": [{ "url": "http://localhost:8090/V1" }],
+  "servers": [],
   "paths": {
     "/countries": {
       "summary": "Countries",
@@ -1137,6 +1137,233 @@
         "summary": "endpoint to delete sport",
         "description": "delete a system sport"
       }
+    },
+    "/transactions": {
+      "summary": "Transactions",
+      "description": "Resources to manage a transactions",
+      "get": {
+        "tags": ["Transactions"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transactions.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "summary": "endpoint to get transactions",
+        "description": "Get all list from transactions"
+      },
+      "post": {
+        "tags": ["Transactions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Transactions.Transaction"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transactions.Create.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "summary": "endpoint to create a transaction",
+        "description": "create new transaction"
+      }
+    },
+    "/transactions/{id}": {
+      "summary": "Transactions",
+      "description": "Resources to manage a transactions",
+      "get": {
+        "tags": ["Transactions"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transactions.Transaction.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Transaction id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to get transaction by Id",
+        "description": "Get info from transaction"
+      },
+      "put": {
+        "tags": ["Transactions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Transactions.Transaction"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transactions.Update.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Transaction id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to update transaction",
+        "description": "update a transaction"
+      },
+      "delete": {
+        "tags": ["Transactions"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transactions.Delete.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Transaction id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to delete transaction",
+        "description": "delete a transaction"
+      }
+    },
+    "/transactions/user/{id}": {
+      "summary": "Transactions",
+      "description": "Resources to manage a transactions",
+      "get": {
+        "tags": ["Transactions"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transactions.User.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "summary": "endpoint to get transactions by user",
+        "description": "Get all list from transactions filter by user"
+      }
     }
   },
   "components": {
@@ -2154,6 +2381,276 @@
         "example": {
           "status": 200,
           "data": "sport deleted."
+        }
+      },
+      "Transactions.Transaction": {
+        "title": "Transactions.Transaction",
+        "description": "Body to create a transaction",
+        "required": ["user_id", "amount", "category_id"],
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer"
+          },
+          "amount": {
+            "type": "integer"
+          },
+          "category_id": {
+            "type": "string",
+            "enum": ["DEPOSIT", "WITHDRAW", "BET", "WINNING"]
+          },
+          "user_bet_id": {
+            "type": "integer"
+          }
+        },
+        "example": {
+          "user_id": 6,
+          "amount": 200,
+          "category": 1,
+          "user_bet_id": 0
+        },
+        "additionalProperties": false
+      },
+      "Transactions.Response": {
+        "title": "Transactions.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "rows": {
+                "description": "data rows",
+                "type": "array"
+              },
+              "total": {
+                "format": "int32",
+                "description": "count total rows",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "rows": [
+              {
+                "id": 1,
+                "user_id": 1,
+                "username": "dani.millan07",
+                "first_name": "Daniel",
+                "last_name": "Millan",
+                "amount": 10,
+                "category_id": 1,
+                "category": "DEPOSIT",
+                "status": 1,
+                "created_at": "2022-06-14T19:09:52.000Z",
+                "updated_at": "2022-06-14T19:09:52.000Z",
+                "deleted": 0,
+                "deleted_at": null,
+                "user_bet_id": null
+              }
+            ],
+            "total": 1
+          }
+        }
+      },
+      "Transactions.User.Response": {
+        "title": "Transactions.User.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "rows": {
+                "description": "data rows",
+                "type": "array"
+              },
+              "total": {
+                "format": "int32",
+                "description": "count total rows",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "rows": [
+              {
+                "id": 1,
+                "user_id": 1,
+                "amount": 10,
+                "category_id": 1,
+                "category": "DEPOSIT",
+                "status": 1,
+                "created_at": "2022-06-14T19:09:52.000Z",
+                "updated_at": "2022-06-14T19:09:52.000Z",
+                "deleted": 0,
+                "deleted_at": null,
+                "user_bet_id": null
+              }
+            ],
+            "total": 1
+          }
+        }
+      },
+      "Transactions.Transaction.Response": {
+        "title": "Transactions.Transaction.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "id": {
+                "format": "int32",
+                "description": "transaction id",
+                "type": "integer"
+              },
+              "user_id": {
+                "format": "int32",
+                "description": "user id",
+                "type": "integer"
+              },
+              "amount": {
+                "format": "int32",
+                "description": "amount",
+                "type": "integer"
+              },
+              "category_id": {
+                "format": "int32",
+                "description": "category id",
+                "type": "integer"
+              },
+              "category": {
+                "description": "category name",
+                "type": "string"
+              },
+              "status": {
+                "format": "int32",
+                "description": "transaction status",
+                "type": "integer"
+              },
+              "created_at": {
+                "description": "created at",
+                "type": "string"
+              },
+              "updated_at": {
+                "description": "updated at",
+                "type": "string"
+              },
+              "deleted": {
+                "description": "is deleted",
+                "type": "integer"
+              },
+              "deleted_at": {
+                "description": "deleted at",
+                "type": "string"
+              },
+              "user_bet_id": {
+                "description": "user bet id",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "id": 1,
+            "user_id": 1,
+            "amount": 10,
+            "category_id": 1,
+            "category": "DEPOSIT",
+            "status": 1,
+            "created_at": "2022-06-14T19:09:52.000Z",
+            "updated_at": "2022-06-14T19:09:52.000Z",
+            "deleted": 0,
+            "deleted_at": null,
+            "user_bet_id": null
+          }
+        }
+      },
+      "Transactions.Create.Response": {
+        "title": "Transactions.Create.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "transaction created."
+        }
+      },
+      "Transactions.Update.Response": {
+        "title": "Transactions.Update.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "transaction updated."
+        }
+      },
+      "Transactions.Delete.Response": {
+        "title": "Transactions.Delete.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "transaction deleted."
         }
       },
       "Response": {
