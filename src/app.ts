@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import swaggerUi from 'swagger-ui-express';
 import logger from 'morgan';
 import config from './config';
@@ -20,7 +20,6 @@ const fullApiPath = `${apiPath}/V1`;
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use('/api-docs', swaggerUi.serve);
 
 app.use((_req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -37,7 +36,22 @@ app.use((_req, res, next) => {
     next();
 });
 
-app.get(`/api-docs`, swaggerUi.setup(swaggerDocument));
+// Declare Swagger
+app.use(
+    `/api-docs`,
+    (req: any, res: Response, next: NextFunction) => {
+        const serverUrl =
+            config.env === 'dev'
+                ? { url: 'http://localhost:8090/V1' }
+                : { url: 'https://greenrun-api.onrender.com' };
+        swaggerDocument.servers = [serverUrl];
+        req.swaggerDoc = swaggerDocument;
+        next();
+    },
+    swaggerUi.serveFiles(swaggerDocument, {}),
+    swaggerUi.setup()
+);
+app.get('/', (req: Request, res: Response) => res.redirect('/api-docs'));
 
 app.use(`${fullApiPath}/cities`, cityController);
 app.use(`${fullApiPath}/countries`, countryController);
