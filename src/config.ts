@@ -7,7 +7,7 @@ export default {
     databaseUser:
         process.env.DB_USER || 'root',
     databasePassword:
-        process.env.DB_PORT || 'Cyb3rS3gur0',
+        process.env.DB_PASSWORD || 'Cyb3rS3gur0',
     databaseName:
         process.env.DB_NAME || 'greenrun',
     port: process.env.PORT || '8090',
