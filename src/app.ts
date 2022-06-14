@@ -10,6 +10,7 @@ import moduleController from './controllers/moduleController';
 import roleController from './controllers/roleController';
 import rolePermissionController from './controllers/rolePermissionController';
 import sportController from './controllers/sportController';
+import transactionController from './controllers/transactionController';
 import userController from './controllers/userController';
 
 const app = express();
@@ -44,6 +45,7 @@ app.use(`${fullApiPath}/modules`, moduleController);
 app.use(`${fullApiPath}/permissions`, rolePermissionController);
 app.use(`${fullApiPath}/roles`, roleController);
 app.use(`${fullApiPath}/sports`, sportController);
+app.use(`${fullApiPath}/transactions`, transactionController);
 app.use(`${fullApiPath}/users`, userController);
 
 export default app;
