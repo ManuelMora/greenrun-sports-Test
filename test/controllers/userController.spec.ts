@@ -5,6 +5,8 @@ import app from '../../src/app';
 import IUser from '../../src/models/IUser';
 import IResponse from '../../src/models/IResponse';
 import UserService from '../../src/services/userService';
+import MiddlewareApi from '../../src/middlewares/middlewareApi';
+import JwtService from '../../src/services/auth/jwtService';
 
 chai.use(chaiHttp);
 chai.should();
@@ -83,12 +85,22 @@ describe('UserController', () => {
         sinon.restore();
     });
 
+    beforeEach(() => {
+        sinon.stub(JwtService, 'validateToken').callsFake(() => {
+            return Promise<void>.resolve({ id: 1 });
+        });
+        sinon.stub(MiddlewareApi, 'validateSession').callsFake(() => {
+            return Promise<void>.resolve();
+        });
+    });
+
     it('should request post users', (done) => {
         sinon.stub(UserService, 'createUser').callsFake(() => {
             return Promise<IResponse>.resolve({ status: 200, data: 'user created.' })
         });
         chai.request(app)
             .post('/V1/users')
+            .set('Authorization', 'Bearer 123')
             .send(mockUser)
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
@@ -96,12 +108,14 @@ describe('UserController', () => {
             });
     });
 
+
     it('should failed request post users', (done) => {
         sinon.stub(UserService, 'createUser').callsFake(() => {
             return Promise.reject('error')
         });
         chai.request(app)
             .post('/V1/users')
+            .set('Authorization', 'Bearer 123')
             .send(mockUser)
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
@@ -115,6 +129,7 @@ describe('UserController', () => {
         });
         chai.request(app)
             .put('/V1/users/1')
+            .set('Authorization', 'Bearer 123')
             .send(mockUser)
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
@@ -128,6 +143,7 @@ describe('UserController', () => {
         });
         chai.request(app)
             .put('/V1/users/1')
+            .set('Authorization', 'Bearer 123')
             .send(mockUser)
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
@@ -141,6 +157,7 @@ describe('UserController', () => {
         });
         chai.request(app)
             .get('/V1/users')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -153,6 +170,7 @@ describe('UserController', () => {
         });
         chai.request(app)
             .get('/V1/users')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -165,6 +183,7 @@ describe('UserController', () => {
         });
         chai.request(app)
             .get('/V1/users/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -177,6 +196,7 @@ describe('UserController', () => {
         });
         chai.request(app)
             .get('/V1/users/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -189,6 +209,7 @@ describe('UserController', () => {
         });
         chai.request(app)
             .delete('/V1/users/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -201,6 +222,7 @@ describe('UserController', () => {
         });
         chai.request(app)
             .delete('/V1/users/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();

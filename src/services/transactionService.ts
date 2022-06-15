@@ -155,7 +155,7 @@ export default class TransactionService {
                 await databaseClient
                     .from('transactions')
                     .where({ id })
-                    .update({ deleted: true });
+                    .update({ deleted: true, deleted_at: new Date() });
                 resolve({ status: 200, data: 'transaction deleted.' });
             } catch (error: any) {
                 debug('error when try deleted transaction: %s', error);

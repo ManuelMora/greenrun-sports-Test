@@ -3,6 +3,7 @@ import debugLib from 'debug';
 import ICity from '../models/ICity';
 import CityService from '../services/cityService';
 import OpenApiValidatorProvider from '../utils/OpenApiValidator';
+import MiddlewareApi from '../middlewares/middlewareApi';
 
 const cityController = Router();
 const validator = OpenApiValidatorProvider.getValidator();
@@ -10,7 +11,7 @@ const debug = debugLib('greenrun-sports:cityController');
 
 cityController.post(
     '/',
-    [validator.validate('post', '/cities')],
+    [MiddlewareApi.validateSession, validator.validate('post', '/cities')],
     async (request: Request, response: Response) => {
         try {
             const city: ICity = request.body;
@@ -25,7 +26,7 @@ cityController.post(
 
 cityController.put(
     '/:id',
-    [validator.validate('put', '/cities/{id}')],
+    [MiddlewareApi.validateSession, validator.validate('put', '/cities/{id}')],
     async (request: Request, response: Response) => {
         try {
             const city: ICity = request.body;
@@ -41,7 +42,7 @@ cityController.put(
 
 cityController.get(
     '/',
-    [validator.validate('get', '/cities')],
+    [MiddlewareApi.validateSession, validator.validate('get', '/cities')],
     async (request: Request, response: Response) => {
         try {
             const cityServiceResult = await CityService.getCities();
@@ -54,7 +55,7 @@ cityController.get(
 
 cityController.get(
     '/:id',
-    [validator.validate('get', '/cities/{id}')],
+    [MiddlewareApi.validateSession, validator.validate('get', '/cities/{id}')],
     async (request: Request, response: Response) => {
         try {
             const cityId = Number(request.params.id);
@@ -68,7 +69,7 @@ cityController.get(
 
 cityController.delete(
     '/:id',
-    [validator.validate('delete', '/cities/{id}')],
+    [MiddlewareApi.validateSession, validator.validate('delete', '/cities/{id}')],
     async (request: Request, response: Response) => {
         try {
             const cityId = Number(request.params.id);

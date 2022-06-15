@@ -3,6 +3,7 @@ import debugLib from 'debug';
 import ISport from '../models/ISport';
 import SportService from '../services/sportService';
 import OpenApiValidatorProvider from '../utils/OpenApiValidator';
+import MiddlewareApi from '../middlewares/middlewareApi';
 
 const sportController = Router();
 const validator = OpenApiValidatorProvider.getValidator();
@@ -10,7 +11,7 @@ const debug = debugLib('greenrun-sports:sportController');
 
 sportController.post(
     '/',
-    [validator.validate('post', '/sports')],
+    [MiddlewareApi.validateSession, validator.validate('post', '/sports')],
     async (request: Request, response: Response) => {
         try {
             const sport: ISport = request.body;
@@ -25,7 +26,7 @@ sportController.post(
 
 sportController.put(
     '/:id',
-    [validator.validate('put', '/sports/{id}')],
+    [MiddlewareApi.validateSession, validator.validate('put', '/sports/{id}')],
     async (request: Request, response: Response) => {
         try {
             const sport: ISport = request.body;
@@ -41,7 +42,7 @@ sportController.put(
 
 sportController.get(
     '/',
-    [validator.validate('get', '/sports')],
+    [MiddlewareApi.validateSession, validator.validate('get', '/sports')],
     async (request: Request, response: Response) => {
         try {
             const sportServiceResult = await SportService.getSports();
@@ -54,7 +55,7 @@ sportController.get(
 
 sportController.get(
     '/:id',
-    [validator.validate('get', '/sports/{id}')],
+    [MiddlewareApi.validateSession, validator.validate('get', '/sports/{id}')],
     async (request: Request, response: Response) => {
         try {
             const sportId = Number(request.params.id);
@@ -68,7 +69,7 @@ sportController.get(
 
 sportController.delete(
     '/:id',
-    [validator.validate('delete', '/sports/{id}')],
+    [MiddlewareApi.validateSession, validator.validate('delete', '/sports/{id}')],
     async (request: Request, response: Response) => {
         try {
             const sportId = Number(request.params.id);

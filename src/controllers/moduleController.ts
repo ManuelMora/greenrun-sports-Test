@@ -3,6 +3,7 @@ import debugLib from 'debug';
 import IModule from '../models/IModule';
 import ModuleService from '../services/moduleService';
 import OpenApiValidatorProvider from '../utils/OpenApiValidator';
+import MiddlewareApi from '../middlewares/middlewareApi';
 
 const moduleController = Router();
 const validator = OpenApiValidatorProvider.getValidator();
@@ -10,7 +11,7 @@ const debug = debugLib('greenrun-sports:moduleController');
 
 moduleController.post(
     '/',
-    [validator.validate('post', '/modules')],
+    [MiddlewareApi.validateSession, validator.validate('post', '/modules')],
     async (request: Request, response: Response) => {
         try {
             const module: IModule = request.body;
@@ -25,7 +26,7 @@ moduleController.post(
 
 moduleController.put(
     '/:id',
-    [validator.validate('put', '/modules/{id}')],
+    [MiddlewareApi.validateSession, validator.validate('put', '/modules/{id}')],
     async (request: Request, response: Response) => {
         try {
             const module: IModule = request.body;
@@ -41,7 +42,7 @@ moduleController.put(
 
 moduleController.get(
     '/',
-    [validator.validate('get', '/modules')],
+    [MiddlewareApi.validateSession, validator.validate('get', '/modules')],
     async (request: Request, response: Response) => {
         try {
             const moduleServiceResult = await ModuleService.getModules();
@@ -54,7 +55,7 @@ moduleController.get(
 
 moduleController.get(
     '/:id',
-    [validator.validate('get', '/modules/{id}')],
+    [MiddlewareApi.validateSession, validator.validate('get', '/modules/{id}')],
     async (request: Request, response: Response) => {
         try {
             const moduleId = Number(request.params.id);
@@ -68,7 +69,10 @@ moduleController.get(
 
 moduleController.delete(
     '/:id',
-    [validator.validate('delete', '/modules/{id}')],
+    [
+        MiddlewareApi.validateSession,
+        validator.validate('delete', '/modules/{id}'),
+    ],
     async (request: Request, response: Response) => {
         try {
             const moduleId = Number(request.params.id);

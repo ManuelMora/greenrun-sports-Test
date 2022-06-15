@@ -2,8 +2,10 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import sinon from 'sinon';
 import app from '../../src/app';
+import MiddlewareApi from '../../src/middlewares/middlewareApi';
 import ICity from '../../src/models/ICity';
 import IResponse from '../../src/models/IResponse';
+import JwtService from '../../src/services/auth/jwtService';
 import CityService from '../../src/services/cityService';
 
 chai.use(chaiHttp);
@@ -46,12 +48,22 @@ describe('CityController', () => {
         sinon.restore();
     });
 
+    beforeEach(() => {
+        sinon.stub(JwtService, 'validateToken').callsFake(() => {
+            return Promise<void>.resolve({ id: 1 });
+        });
+        sinon.stub(MiddlewareApi, 'validateSession').callsFake(() => {
+            return Promise<void>.resolve();
+        });
+    });
+
     it('should request post cities', (done) => {
         sinon.stub(CityService, 'createCity').callsFake(() => {
             return Promise<IResponse>.resolve({ status: 200, data: 'city created.' })
         });
         chai.request(app)
             .post('/V1/cities')
+            .set('Authorization', 'Bearer 123')
             .send(mockCity)
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
@@ -65,6 +77,7 @@ describe('CityController', () => {
         });
         chai.request(app)
             .post('/V1/cities')
+            .set('Authorization', 'Bearer 123')
             .send(mockCity)
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
@@ -78,6 +91,7 @@ describe('CityController', () => {
         });
         chai.request(app)
             .put('/V1/cities/1')
+            .set('Authorization', 'Bearer 123')
             .send(mockCity)
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
@@ -91,6 +105,7 @@ describe('CityController', () => {
         });
         chai.request(app)
             .put('/V1/cities/1')
+            .set('Authorization', 'Bearer 123')
             .send(mockCity)
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
@@ -104,6 +119,7 @@ describe('CityController', () => {
         });
         chai.request(app)
             .get('/V1/cities')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -116,6 +132,7 @@ describe('CityController', () => {
         });
         chai.request(app)
             .get('/V1/cities')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -128,6 +145,7 @@ describe('CityController', () => {
         });
         chai.request(app)
             .get('/V1/cities/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -140,6 +158,7 @@ describe('CityController', () => {
         });
         chai.request(app)
             .get('/V1/cities/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -152,6 +171,7 @@ describe('CityController', () => {
         });
         chai.request(app)
             .delete('/V1/cities/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -164,6 +184,7 @@ describe('CityController', () => {
         });
         chai.request(app)
             .delete('/V1/cities/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();

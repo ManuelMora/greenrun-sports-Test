@@ -5,6 +5,8 @@ import app from '../../src/app';
 import IRolePermission from '../../src/models/IRolePermission';
 import IResponse from '../../src/models/IResponse';
 import RolePermissionService from '../../src/services/rolePermissionService';
+import JwtService from '../../src/services/auth/jwtService';
+import MiddlewareApi from '../../src/middlewares/middlewareApi';
 
 chai.use(chaiHttp);
 chai.should();
@@ -37,12 +39,22 @@ describe('RoleController', () => {
         sinon.restore();
     });
 
+    beforeEach(() => {
+        sinon.stub(JwtService, 'validateToken').callsFake(() => {
+            return Promise<void>.resolve({ id: 1 });
+        });
+        sinon.stub(MiddlewareApi, 'validateSession').callsFake(() => {
+            return Promise<void>.resolve();
+        });
+    });
+
     it('should request post role permission', (done) => {
         sinon.stub(RolePermissionService, 'createNewPermissionFromRole').callsFake(() => {
             return Promise<IResponse>.resolve({ status: 200, data: 'permission to role created.' })
         });
         chai.request(app)
             .post('/V1/permissions')
+            .set('Authorization', 'Bearer 123')
             .send(mockRolePermission)
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
@@ -56,6 +68,7 @@ describe('RoleController', () => {
         });
         chai.request(app)
             .post('/V1/permissions')
+            .set('Authorization', 'Bearer 123')
             .send(mockRolePermission)
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
@@ -69,6 +82,7 @@ describe('RoleController', () => {
         });
         chai.request(app)
             .get('/V1/permissions')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -81,6 +95,7 @@ describe('RoleController', () => {
         });
         chai.request(app)
             .get('/V1/permissions')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -93,6 +108,7 @@ describe('RoleController', () => {
         });
         chai.request(app)
             .get('/V1/permissions/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -105,6 +121,7 @@ describe('RoleController', () => {
         });
         chai.request(app)
             .get('/V1/permissions/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -117,6 +134,7 @@ describe('RoleController', () => {
         });
         chai.request(app)
             .delete('/V1/permissions/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -129,6 +147,7 @@ describe('RoleController', () => {
         });
         chai.request(app)
             .delete('/V1/permissions/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();

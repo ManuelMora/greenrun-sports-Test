@@ -3,13 +3,14 @@ import debugLib from 'debug';
 import IRolePermission from '../models/IRolePermission';
 import RolePermissionService from '../services/rolePermissionService';
 import OpenApiValidatorProvider from '../utils/OpenApiValidator';
+import MiddlewareApi from '../middlewares/middlewareApi';
 
 const rolePermissionController = Router();
 const validator = OpenApiValidatorProvider.getValidator();
 
 rolePermissionController.post(
     '/',
-    [validator.validate('post', '/permissions')],
+    [MiddlewareApi.validateSession, validator.validate('post', '/permissions')],
     async (request: Request, response: Response) => {
         try {
             const rolePermission: IRolePermission = request.body;
@@ -26,7 +27,7 @@ rolePermissionController.post(
 
 rolePermissionController.get(
     '/',
-    [validator.validate('get', '/permissions')],
+    [MiddlewareApi.validateSession, validator.validate('get', '/permissions')],
     async (request: Request, response: Response) => {
         try {
             const rolePermissionServiceResult =
@@ -42,7 +43,10 @@ rolePermissionController.get(
 
 rolePermissionController.get(
     '/:role_id',
-    [validator.validate('get', '/permissions/{role_id}')],
+    [
+        MiddlewareApi.validateSession,
+        validator.validate('get', '/permissions/{role_id}'),
+    ],
     async (request: Request, response: Response) => {
         try {
             const roleId = Number(request.params.role_id);
@@ -59,7 +63,10 @@ rolePermissionController.get(
 
 rolePermissionController.delete(
     '/:id',
-    [validator.validate('delete', '/permissions/{id}')],
+    [
+        MiddlewareApi.validateSession,
+        validator.validate('delete', '/permissions/{id}'),
+    ],
     async (request: Request, response: Response) => {
         try {
             const rolePermissionId = Number(request.params.role_id);
