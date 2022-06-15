@@ -2342,12 +2342,23 @@
       "Users.User": {
         "title": "Users.User",
         "description": "Body to create a user",
-        "required": ["name", "description"],
+        "required": [
+          "role",
+          "first_name",
+          "last_name",
+          "phone",
+          "email",
+          "username",
+          "address",
+          "gender",
+          "birth_date",
+          "city",
+          "category",
+          "document_id",
+          "user_state"
+        ],
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer"
-          },
           "role": {
             "type": "integer"
           },
