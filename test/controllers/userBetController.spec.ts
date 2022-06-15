@@ -5,6 +5,8 @@ import app from '../../src/app';
 import IUserBet from '../../src/models/IUserBet';
 import IResponse from '../../src/models/IResponse';
 import UserBetService from '../../src/services/userBetService';
+import JwtService from '../../src/services/auth/jwtService';
+import MiddlewareApi from '../../src/middlewares/middlewareApi';
 
 chai.use(chaiHttp);
 chai.should();
@@ -65,12 +67,22 @@ describe('betController', () => {
         sinon.restore();
     });
 
+    beforeEach(() => {
+        sinon.stub(JwtService, 'validateToken').callsFake(() => {
+            return Promise<void>.resolve({ id: 1 });
+        });
+        sinon.stub(MiddlewareApi, 'validateSession').callsFake(() => {
+            return Promise<void>.resolve();
+        });
+    });
+
     it('should request post user bet', (done) => {
         sinon.stub(UserBetService, 'createUserBet').callsFake(() => {
             return Promise<IResponse>.resolve({ status: 200, data: 'bet created.' })
         });
         chai.request(app)
             .post('/V1/user/bets')
+            .set('Authorization', 'Bearer 123')
             .send(mockUserBet)
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
@@ -84,6 +96,7 @@ describe('betController', () => {
         });
         chai.request(app)
             .post('/V1/user/bets')
+            .set('Authorization', 'Bearer 123')
             .send(mockUserBet)
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
@@ -97,6 +110,7 @@ describe('betController', () => {
         });
         chai.request(app)
             .put('/V1/user/bets/1')
+            .set('Authorization', 'Bearer 123')
             .send(mockUserBet)
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
@@ -110,6 +124,7 @@ describe('betController', () => {
         });
         chai.request(app)
             .put('/V1/user/bets/1')
+            .set('Authorization', 'Bearer 123')
             .send(mockUserBet)
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
@@ -123,6 +138,7 @@ describe('betController', () => {
         });
         chai.request(app)
             .get('/V1/user/bets')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -135,6 +151,7 @@ describe('betController', () => {
         });
         chai.request(app)
             .get('/V1/user/bets')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -147,6 +164,7 @@ describe('betController', () => {
         });
         chai.request(app)
             .get('/V1/user/bets/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -159,6 +177,7 @@ describe('betController', () => {
         });
         chai.request(app)
             .get('/V1/user/bets/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -171,6 +190,7 @@ describe('betController', () => {
         });
         chai.request(app)
             .get('/V1/user/bets/filter/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -183,6 +203,7 @@ describe('betController', () => {
         });
         chai.request(app)
             .get('/V1/user/bets/filter/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -195,6 +216,7 @@ describe('betController', () => {
         });
         chai.request(app)
             .delete('/V1/user/bets/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -207,6 +229,7 @@ describe('betController', () => {
         });
         chai.request(app)
             .delete('/V1/user/bets/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();

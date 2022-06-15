@@ -5,6 +5,8 @@ import app from '../../src/app';
 import ISport from '../../src/models/ISport';
 import IResponse from '../../src/models/IResponse';
 import SportService from '../../src/services/sportService';
+import JwtService from '../../src/services/auth/jwtService';
+import MiddlewareApi from '../../src/middlewares/middlewareApi';
 
 chai.use(chaiHttp);
 chai.should();
@@ -46,12 +48,22 @@ describe('SportController', () => {
         sinon.restore();
     });
 
+    beforeEach(() => {
+        sinon.stub(JwtService, 'validateToken').callsFake(() => {
+            return Promise<void>.resolve({ id: 1 });
+        });
+        sinon.stub(MiddlewareApi, 'validateSession').callsFake(() => {
+            return Promise<void>.resolve();
+        });
+    });
+
     it('should request post sport', (done) => {
         sinon.stub(SportService, 'createSport').callsFake(() => {
             return Promise<IResponse>.resolve({ status: 200, data: 'sport created.' })
         });
         chai.request(app)
             .post('/V1/sports')
+            .set('Authorization', 'Bearer 123')
             .send(mockSport)
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
@@ -65,6 +77,7 @@ describe('SportController', () => {
         });
         chai.request(app)
             .post('/V1/sports')
+            .set('Authorization', 'Bearer 123')
             .send(mockSport)
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
@@ -78,6 +91,7 @@ describe('SportController', () => {
         });
         chai.request(app)
             .put('/V1/sports/1')
+            .set('Authorization', 'Bearer 123')
             .send(mockSport)
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
@@ -91,6 +105,7 @@ describe('SportController', () => {
         });
         chai.request(app)
             .put('/V1/sports/1')
+            .set('Authorization', 'Bearer 123')
             .send(mockSport)
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
@@ -104,6 +119,7 @@ describe('SportController', () => {
         });
         chai.request(app)
             .get('/V1/sports')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -116,6 +132,7 @@ describe('SportController', () => {
         });
         chai.request(app)
             .get('/V1/sports')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -128,6 +145,7 @@ describe('SportController', () => {
         });
         chai.request(app)
             .get('/V1/sports/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -140,6 +158,7 @@ describe('SportController', () => {
         });
         chai.request(app)
             .get('/V1/sports/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -152,6 +171,7 @@ describe('SportController', () => {
         });
         chai.request(app)
             .delete('/V1/sports/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -164,6 +184,7 @@ describe('SportController', () => {
         });
         chai.request(app)
             .delete('/V1/sports/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();

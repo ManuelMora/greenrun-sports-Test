@@ -4,6 +4,7 @@ import IUserBet from '../models/IUserBet';
 import UserBetService from '../services/userBetService';
 import OpenApiValidatorProvider from '../utils/OpenApiValidator';
 import { EBetResult } from '../models/IBet';
+import MiddlewareApi from '../middlewares/middlewareApi';
 
 const userBetController = Router();
 const validator = OpenApiValidatorProvider.getValidator();
@@ -11,7 +12,7 @@ const debug = debugLib('greenrun-sports:userBetController');
 
 userBetController.post(
     '/',
-    [validator.validate('post', '/user/bets')],
+    [MiddlewareApi.validateSession, validator.validate('post', '/user/bets')],
     async (request: Request, response: Response) => {
         try {
             const userBet: IUserBet = request.body;
@@ -28,7 +29,7 @@ userBetController.post(
 
 userBetController.put(
     '/:id',
-    [validator.validate('put', '/user/bets/{id}')],
+    [MiddlewareApi.validateSession, validator.validate('put', '/user/bets/{id}')],
     async (request: Request, response: Response) => {
         try {
             const userBet: IUserBet = request.body;
@@ -46,7 +47,7 @@ userBetController.put(
 
 userBetController.get(
     '/',
-    [validator.validate('get', '/user/bets')],
+    [MiddlewareApi.validateSession, validator.validate('get', '/user/bets')],
     async (request: Request, response: Response) => {
         try {
             const userBetServiceResult = await UserBetService.getUserBets();
@@ -59,7 +60,10 @@ userBetController.get(
 
 userBetController.get(
     '/filter/:id',
-    [validator.validate('get', '/user/bets/filter/{id}')],
+    [
+        MiddlewareApi.validateSession,
+        validator.validate('get', '/user/bets/filter/{id}'),
+    ],
     async (request: Request, response: Response) => {
         try {
             const userId = Number(request.params.id);
@@ -75,7 +79,7 @@ userBetController.get(
 
 userBetController.get(
     '/:id',
-    [validator.validate('get', '/user/bets/{id}')],
+    [MiddlewareApi.validateSession, validator.validate('get', '/user/bets/{id}')],
     async (request: Request, response: Response) => {
         try {
             const userBetId = Number(request.params.id);
@@ -91,7 +95,10 @@ userBetController.get(
 
 userBetController.delete(
     '/:id',
-    [validator.validate('delete', '/user/bets/{id}')],
+    [
+        MiddlewareApi.validateSession,
+        validator.validate('delete', '/user/bets/{id}'),
+    ],
     async (request: Request, response: Response) => {
         try {
             const eventId = Number(request.params.id);

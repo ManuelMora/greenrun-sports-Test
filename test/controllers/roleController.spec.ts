@@ -5,6 +5,8 @@ import app from '../../src/app';
 import IRole from '../../src/models/IRole';
 import IResponse from '../../src/models/IResponse';
 import RoleService from '../../src/services/roleService';
+import MiddlewareApi from '../../src/middlewares/middlewareApi';
+import JwtService from '../../src/services/auth/jwtService';
 
 chai.use(chaiHttp);
 chai.should();
@@ -44,12 +46,22 @@ describe('RoleController', () => {
         sinon.restore();
     });
 
+    beforeEach(() => {
+        sinon.stub(JwtService, 'validateToken').callsFake(() => {
+            return Promise<void>.resolve({ id: 1 });
+        });
+        sinon.stub(MiddlewareApi, 'validateSession').callsFake(() => {
+            return Promise<void>.resolve();
+        });
+    });
+
     it('should request post role', (done) => {
         sinon.stub(RoleService, 'createRole').callsFake(() => {
             return Promise<IResponse>.resolve({ status: 200, data: 'Role created.' })
         });
         chai.request(app)
             .post('/V1/roles')
+            .set('Authorization', 'Bearer 123')
             .send(mockRole)
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
@@ -63,6 +75,7 @@ describe('RoleController', () => {
         });
         chai.request(app)
             .post('/V1/roles')
+            .set('Authorization', 'Bearer 123')
             .send(mockRole)
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
@@ -76,6 +89,7 @@ describe('RoleController', () => {
         });
         chai.request(app)
             .put('/V1/roles/1')
+            .set('Authorization', 'Bearer 123')
             .send(mockRole)
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
@@ -89,6 +103,7 @@ describe('RoleController', () => {
         });
         chai.request(app)
             .put('/V1/roles/1')
+            .set('Authorization', 'Bearer 123')
             .send(mockRole)
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
@@ -102,6 +117,7 @@ describe('RoleController', () => {
         });
         chai.request(app)
             .get('/V1/roles')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -114,6 +130,7 @@ describe('RoleController', () => {
         });
         chai.request(app)
             .get('/V1/roles')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -126,6 +143,7 @@ describe('RoleController', () => {
         });
         chai.request(app)
             .get('/V1/roles/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -138,6 +156,7 @@ describe('RoleController', () => {
         });
         chai.request(app)
             .get('/V1/roles/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -150,6 +169,7 @@ describe('RoleController', () => {
         });
         chai.request(app)
             .delete('/V1/roles/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -162,6 +182,7 @@ describe('RoleController', () => {
         });
         chai.request(app)
             .delete('/V1/roles/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();

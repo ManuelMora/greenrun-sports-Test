@@ -5,6 +5,7 @@ import app from '../../src/app';
 import IUser from '../../src/models/IUser';
 import IResponse from '../../src/models/IResponse';
 import UserService from '../../src/services/userService';
+import MiddlewareApi from '../../src/middlewares/middlewareApi';
 
 chai.use(chaiHttp);
 chai.should();
@@ -84,17 +85,22 @@ describe('UserController', () => {
     });
 
     it('should request post users', (done) => {
+        sinon.stub(MiddlewareApi, 'validateSession').callsFake(() => {
+            return Promise<void>.resolve();
+        })
         sinon.stub(UserService, 'createUser').callsFake(() => {
             return Promise<IResponse>.resolve({ status: 200, data: 'user created.' })
         });
         chai.request(app)
             .post('/V1/users')
+            .set('Authorization', 'Bearer 123')
             .send(mockUser)
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
             });
     });
+
 
     it('should failed request post users', (done) => {
         sinon.stub(UserService, 'createUser').callsFake(() => {

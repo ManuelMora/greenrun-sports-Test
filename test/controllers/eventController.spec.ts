@@ -2,8 +2,10 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import sinon from 'sinon';
 import app from '../../src/app';
+import MiddlewareApi from '../../src/middlewares/middlewareApi';
 import IEvent from '../../src/models/IEvent';
 import IResponse from '../../src/models/IResponse';
+import JwtService from '../../src/services/auth/jwtService';
 import EventService from '../../src/services/eventService';
 
 chai.use(chaiHttp);
@@ -41,12 +43,22 @@ describe('eventController', () => {
         sinon.restore();
     });
 
+    beforeEach(() => {
+        sinon.stub(JwtService, 'validateToken').callsFake(() => {
+            return Promise<void>.resolve({ id: 1 });
+        });
+        sinon.stub(MiddlewareApi, 'validateSession').callsFake(() => {
+            return Promise<void>.resolve();
+        });
+    });
+
     it('should request post event', (done) => {
         sinon.stub(EventService, 'createEvent').callsFake(() => {
             return Promise<IResponse>.resolve({ status: 200, data: 'event created.' })
         });
         chai.request(app)
             .post('/V1/events')
+            .set('Authorization', 'Bearer 123')
             .send(mockevent)
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
@@ -60,6 +72,7 @@ describe('eventController', () => {
         });
         chai.request(app)
             .post('/V1/events')
+            .set('Authorization', 'Bearer 123')
             .send(mockevent)
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
@@ -73,6 +86,7 @@ describe('eventController', () => {
         });
         chai.request(app)
             .put('/V1/events/1')
+            .set('Authorization', 'Bearer 123')
             .send(mockevent)
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
@@ -86,6 +100,7 @@ describe('eventController', () => {
         });
         chai.request(app)
             .put('/V1/events/1')
+            .set('Authorization', 'Bearer 123')
             .send(mockevent)
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
@@ -99,6 +114,7 @@ describe('eventController', () => {
         });
         chai.request(app)
             .get('/V1/events')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -111,6 +127,7 @@ describe('eventController', () => {
         });
         chai.request(app)
             .get('/V1/events')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -123,6 +140,7 @@ describe('eventController', () => {
         });
         chai.request(app)
             .get('/V1/events/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -135,6 +153,7 @@ describe('eventController', () => {
         });
         chai.request(app)
             .get('/V1/events/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -147,6 +166,7 @@ describe('eventController', () => {
         });
         chai.request(app)
             .put('/V1/events/status/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -159,6 +179,7 @@ describe('eventController', () => {
         });
         chai.request(app)
             .put('/V1/events/status/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -171,6 +192,7 @@ describe('eventController', () => {
         });
         chai.request(app)
             .delete('/V1/events/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -183,6 +205,7 @@ describe('eventController', () => {
         });
         chai.request(app)
             .delete('/V1/events/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();

@@ -3,6 +3,7 @@ import debugLib from 'debug';
 import IRole from '../models/IRole';
 import RoleService from '../services/roleService';
 import OpenApiValidatorProvider from '../utils/OpenApiValidator';
+import MiddlewareApi from '../middlewares/middlewareApi';
 
 const roleController = Router();
 const validator = OpenApiValidatorProvider.getValidator();
@@ -10,7 +11,7 @@ const debug = debugLib('greenrun-sports:roleController');
 
 roleController.post(
     '/',
-    [validator.validate('post', '/roles')],
+    [MiddlewareApi.validateSession, validator.validate('post', '/roles')],
     async (request: Request, response: Response) => {
         try {
             const role: IRole = request.body;
@@ -25,7 +26,7 @@ roleController.post(
 
 roleController.put(
     '/:id',
-    [validator.validate('put', '/roles/{id}')],
+    [MiddlewareApi.validateSession, validator.validate('put', '/roles/{id}')],
     async (request: Request, response: Response) => {
         try {
             const role: IRole = request.body;
@@ -41,7 +42,7 @@ roleController.put(
 
 roleController.get(
     '/',
-    [validator.validate('get', '/roles')],
+    [MiddlewareApi.validateSession, validator.validate('get', '/roles')],
     async (request: Request, response: Response) => {
         try {
             const roleServiceResult = await RoleService.getRoles();
@@ -54,7 +55,7 @@ roleController.get(
 
 roleController.get(
     '/:id',
-    [validator.validate('get', '/roles/{id}')],
+    [MiddlewareApi.validateSession, validator.validate('get', '/roles/{id}')],
     async (request: Request, response: Response) => {
         try {
             const roleId = Number(request.params.id);
@@ -68,7 +69,7 @@ roleController.get(
 
 roleController.delete(
     '/:id',
-    [validator.validate('delete', '/roles/{id}')],
+    [MiddlewareApi.validateSession, validator.validate('delete', '/roles/{id}')],
     async (request: Request, response: Response) => {
         try {
             const roleId = Number(request.params.id);

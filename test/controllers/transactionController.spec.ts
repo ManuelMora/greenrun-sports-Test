@@ -5,6 +5,8 @@ import app from '../../src/app';
 import ITransaction from '../../src/models/ITransaction';
 import IResponse from '../../src/models/IResponse';
 import TransactionService from '../../src/services/transactionService';
+import JwtService from '../../src/services/auth/jwtService';
+import MiddlewareApi from '../../src/middlewares/middlewareApi';
 
 chai.use(chaiHttp);
 chai.should();
@@ -84,12 +86,22 @@ describe('TransactionController', () => {
         sinon.restore();
     });
 
+    beforeEach(() => {
+        sinon.stub(JwtService, 'validateToken').callsFake(() => {
+            return Promise<void>.resolve({ id: 1 });
+        });
+        sinon.stub(MiddlewareApi, 'validateSession').callsFake(() => {
+            return Promise<void>.resolve();
+        });
+    });
+
     it('should request post transaction', (done) => {
         sinon.stub(TransactionService, 'createTransaction').callsFake(() => {
             return Promise<IResponse>.resolve({ status: 200, data: 'transaction created.' })
         });
         chai.request(app)
             .post('/V1/transactions')
+            .set('Authorization', 'Bearer 123')
             .send(mockTransaction)
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
@@ -103,6 +115,7 @@ describe('TransactionController', () => {
         });
         chai.request(app)
             .post('/V1/transactions')
+            .set('Authorization', 'Bearer 123')
             .send(mockTransaction)
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
@@ -116,6 +129,7 @@ describe('TransactionController', () => {
         });
         chai.request(app)
             .put('/V1/transactions/1')
+            .set('Authorization', 'Bearer 123')
             .send(mockTransaction)
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
@@ -129,6 +143,7 @@ describe('TransactionController', () => {
         });
         chai.request(app)
             .put('/V1/transactions/1')
+            .set('Authorization', 'Bearer 123')
             .send(mockTransaction)
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
@@ -142,6 +157,7 @@ describe('TransactionController', () => {
         });
         chai.request(app)
             .get('/V1/transactions')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -154,6 +170,7 @@ describe('TransactionController', () => {
         });
         chai.request(app)
             .get('/V1/transactions')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -166,6 +183,7 @@ describe('TransactionController', () => {
         });
         chai.request(app)
             .get('/V1/transactions/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -178,6 +196,7 @@ describe('TransactionController', () => {
         });
         chai.request(app)
             .get('/V1/transactions/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -190,6 +209,7 @@ describe('TransactionController', () => {
         });
         chai.request(app)
             .get('/V1/transactions/user/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -202,6 +222,7 @@ describe('TransactionController', () => {
         });
         chai.request(app)
             .get('/V1/transactions/user/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -214,6 +235,7 @@ describe('TransactionController', () => {
         });
         chai.request(app)
             .delete('/V1/transactions/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -226,6 +248,7 @@ describe('TransactionController', () => {
         });
         chai.request(app)
             .delete('/V1/transactions/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();

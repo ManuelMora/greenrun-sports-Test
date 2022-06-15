@@ -3,6 +3,7 @@ import debugLib from 'debug';
 import ICountry from '../models/ICountry';
 import CountryService from '../services/countryService';
 import OpenApiValidatorProvider from '../utils/OpenApiValidator';
+import MiddlewareApi from '../middlewares/middlewareApi';
 
 const countryController = Router();
 const validator = OpenApiValidatorProvider.getValidator();
@@ -10,7 +11,7 @@ const debug = debugLib('greenrun-sports:countryController');
 
 countryController.post(
     '/',
-    [validator.validate('post', '/countries')],
+    [MiddlewareApi.validateSession, validator.validate('post', '/countries')],
     async (request: Request, response: Response) => {
         try {
             const country: ICountry = request.body;
@@ -25,7 +26,7 @@ countryController.post(
 
 countryController.put(
     '/:id',
-    [validator.validate('put', '/countries/{id}')],
+    [MiddlewareApi.validateSession, validator.validate('put', '/countries/{id}')],
     async (request: Request, response: Response) => {
         try {
             const country: ICountry = request.body;
@@ -41,7 +42,7 @@ countryController.put(
 
 countryController.get(
     '/',
-    [validator.validate('get', '/countries')],
+    [MiddlewareApi.validateSession, validator.validate('get', '/countries')],
     async (request: Request, response: Response) => {
         try {
             const countryServiceResult = await CountryService.getCountries();
@@ -54,7 +55,7 @@ countryController.get(
 
 countryController.get(
     '/:id',
-    [validator.validate('get', '/countries/{id}')],
+    [MiddlewareApi.validateSession, validator.validate('get', '/countries/{id}')],
     async (request: Request, response: Response) => {
         try {
             const countryId = Number(request.params.id);
@@ -70,7 +71,10 @@ countryController.get(
 
 countryController.delete(
     '/:id',
-    [validator.validate('delete', '/countries/{id}')],
+    [
+        MiddlewareApi.validateSession,
+        validator.validate('delete', '/countries/{id}'),
+    ],
     async (request: Request, response: Response) => {
         try {
             const countryId = Number(request.params.id);
