@@ -44,7 +44,7 @@ app.use((_req, res, next) => {
 app.use(
     `/api-docs`,
     (req: any, res: Response, next: NextFunction) => {
-        swaggerDocument.servers = [config.serverUrl];
+        swaggerDocument.servers = [{ url: config.serverUrl }];
         req.swaggerDoc = swaggerDocument;
         next();
     },
