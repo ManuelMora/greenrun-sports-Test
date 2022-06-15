@@ -1,5 +1,6 @@
 export default {
     env: process.env.NODE_ENV || 'dev',
+    serverUrl: process.env.SERVER_URL || 'http://localhost:8090/V1',
     apiPath: process.env.API_PATH || '',
     databaseHost: process.env.DB_HOST || '127.0.0.1',
     databasePort: process.env.DB_PORT || '3306',

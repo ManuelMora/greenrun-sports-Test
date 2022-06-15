@@ -44,11 +44,7 @@ app.use((_req, res, next) => {
 app.use(
     `/api-docs`,
     (req: any, res: Response, next: NextFunction) => {
-        const serverUrl =
-            config.env === 'dev'
-                ? { url: 'http://localhost:8090/V1' }
-                : { url: 'https://greenrun-api.onrender.com' };
-        swaggerDocument.servers = [serverUrl];
+        swaggerDocument.servers = [config.serverUrl];
         req.swaggerDoc = swaggerDocument;
         next();
     },
