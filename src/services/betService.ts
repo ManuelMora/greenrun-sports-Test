@@ -35,7 +35,28 @@ export default class BetService {
             try {
                 const betsList = await databaseClient
                     .from('bets')
-                    .select();
+                    .join('sports', 'bets.sport', '=', 'sports.id')
+                    .join('events', 'bets.event_id', '=', 'events.id')
+                    .join('bet_status', 'bets.status', '=', 'bet_status.id')
+                    .join('bet_result', 'bets.result', '=', 'bet_result.id')
+                    .select(
+                        'bets.id',
+                        'bets.bet_option',
+                        'bets.sport as sport_id',
+                        'sports.name as sport',
+                        'bets.status as status_id',
+                        'bet_status.name as status',
+                        'bets.name',
+                        'bets.event_id',
+                        'events.name as event',
+                        'bets.odd',
+                        'bets.result as result_id',
+                        'bet_result.name as result',
+                        'bets.created_at',
+                        'bets.updated_at',
+                        'bets.deleted',
+                        'bets.deleted_at'
+                    );
                 resolve({
                     status: 200,
                     data: { rows: betsList, total: betsList.length },
@@ -52,8 +73,29 @@ export default class BetService {
             try {
                 const betMatch = await databaseClient
                     .from('bets')
-                    .where({ id })
-                    .select()
+                    .join('sports', 'bets.sport', '=', 'sports.id')
+                    .join('events', 'bets.event_id', '=', 'events.id')
+                    .join('bet_status', 'bets.status', '=', 'bet_status.id')
+                    .join('bet_result', 'bets.result', '=', 'bet_result.id')
+                    .where({ 'bets.id': id })
+                    .select(
+                        'bets.id',
+                        'bets.bet_option',
+                        'bets.sport as sport_id',
+                        'sports.name as sport',
+                        'bets.status as status_id',
+                        'bet_status.name as status',
+                        'bets.name',
+                        'bets.event_id',
+                        'events.name as event',
+                        'bets.odd',
+                        'bets.result as result_id',
+                        'bet_result.name as result',
+                        'bets.created_at',
+                        'bets.updated_at',
+                        'bets.deleted',
+                        'bets.deleted_at'
+                    )
                     .limit(1);
                 resolve({ status: 200, data: betMatch[0] });
             } catch (error: any) {
@@ -69,7 +111,7 @@ export default class BetService {
                 await databaseClient
                     .from('bets')
                     .where({ id })
-                    .update({ status: false });
+                    .update({ deleted: true, deleted_at: new Date() });
                 resolve({ status: 200, data: 'bet deleted.' });
             } catch (error: any) {
                 debug('error when try deleted bet: %s', error);

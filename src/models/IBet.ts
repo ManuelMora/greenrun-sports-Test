@@ -1,11 +1,11 @@
 export default interface IBet {
     id?: number;
-    bet_option: String;
+    bet_option: number;
     sport: number;
     status_id?: string;
     status?: EBetStatus;
     name: string;
-    event_id: number
+    event_id: number;
     odd: number;
     result_id?: string;
     result?: EBetResult;
@@ -18,10 +18,11 @@ export default interface IBet {
 export enum EBetStatus {
     ACTIVE = 1,
     CANCELLED = 2,
-    SETTLED = 3
+    SETTLED = 3,
 }
 
 export enum EBetResult {
     WON = 1,
-    LOST = 2
+    LOST = 2,
+    OPEN = 3,
 }

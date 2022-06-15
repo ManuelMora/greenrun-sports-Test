@@ -1560,6 +1560,482 @@
         "summary": "endpoint to delete bet",
         "description": "delete a bet"
       }
+    },
+    "/events": {
+      "summary": "Events",
+      "description": "Resources to manage a event",
+      "get": {
+        "tags": ["Events"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Events.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "summary": "endpoint to get events",
+        "description": "Get all list from events"
+      },
+      "post": {
+        "tags": ["Events"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Events.Event"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Events.Create.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "summary": "endpoint to create a event",
+        "description": "create new event"
+      }
+    },
+    "/events/{id}": {
+      "summary": "Events",
+      "description": "Resources to manage a events",
+      "get": {
+        "tags": ["Events"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Events.Event.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Event id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to get event by Id",
+        "description": "Get info from event"
+      },
+      "put": {
+        "tags": ["Events"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Events.Event"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Events.Update.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Event id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to update event",
+        "description": "update a event"
+      },
+      "delete": {
+        "tags": ["Events"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Events.Delete.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Event id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to delete event",
+        "description": "delete a event"
+      }
+    },
+    "/events/status/{id}": {
+      "summary": "Events",
+      "description": "Resources to manage a events",
+      "put": {
+        "tags": ["Events"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Events.Finished.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Event id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to finished event",
+        "description": "finished a event"
+      }
+    },
+    "/user/bets": {
+      "summary": "UserBets",
+      "description": "Resources to manage a user bets",
+      "get": {
+        "tags": ["UserBets"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBets.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "summary": "endpoint to get user bets",
+        "description": "Get all list from user bets"
+      },
+      "post": {
+        "tags": ["UserBets"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserBets.UserBet"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBets.Create.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "summary": "endpoint to create a user bet",
+        "description": "create new user bet"
+      }
+    },
+    "/user/bets/{id}": {
+      "summary": "UserBets",
+      "description": "Resources to manage a user bets",
+      "get": {
+        "tags": ["UserBets"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBets.UserBet.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "UserBet id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to get user bet by Id",
+        "description": "Get info from user bet"
+      },
+      "put": {
+        "tags": ["UserBets"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserBets.UserBet"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBets.Update.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "UserBet id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to update user bet",
+        "description": "update a user bet"
+      },
+      "delete": {
+        "tags": ["UserBets"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBets.Delete.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "UserBet id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to delete user bet",
+        "description": "delete a user bet"
+      }
+    },
+    "/user/bets/filter/{id}": {
+      "summary": "UserBets",
+      "description": "Resources to manage a user bets",
+      "get": {
+        "tags": ["UserBets"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBets.UserBets.Filter.Response"
+                }
+              }
+            },
+            "description": "200 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response.Error"
+                }
+              }
+            },
+            "description": "500 response"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "User id",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "summary": "endpoint to get bet by user Id",
+        "description": "Get info from bet by user Id"
+      }
     }
   },
   "components": {
@@ -2847,6 +3323,800 @@
         "example": {
           "status": 200,
           "data": "transaction deleted."
+        }
+      },
+      "Bets.Bet": {
+        "title": "Bets.Bet",
+        "description": "Body to create a bet",
+        "required": [
+          "bet_option",
+          "status_id",
+          "sport",
+          "name",
+          "event_id",
+          "odd"
+        ],
+        "type": "object",
+        "properties": {
+          "bet_option": {
+            "type": "integer"
+          },
+          "status_id": {
+            "type": "string",
+            "enum": ["ACTIVE", "CANCELLED", "SETTLED"]
+          },
+          "sport": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "event_id": {
+            "type": "integer"
+          },
+          "odd": {
+            "type": "integer"
+          },
+          "result_id": {
+            "type": "string",
+            "enum": ["WON", "LOST", "OPEN"]
+          }
+        },
+        "example": {
+          "bet_option": 1,
+          "status_id": "ACTIVE",
+          "sport": 1,
+          "name": "Borussia Dortmund",
+          "event_id": "1",
+          "odd": 1
+        },
+        "additionalProperties": false
+      },
+      "Bets.Response": {
+        "title": "Bets.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "rows": {
+                "description": "data rows",
+                "type": "array"
+              },
+              "total": {
+                "format": "int32",
+                "description": "count total rows",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "rows": [
+              {
+                "id": 1,
+                "bet_option": "bet",
+                "sport_id": 1,
+                "sport": "Soccer",
+                "status_id": "1",
+                "status": "ACTIVE",
+                "name": "bet 1",
+                "event_id": "1",
+                "event": "Borussia VS Barcelona",
+                "odd": "1",
+                "result": null,
+                "created_at": "2022-06-15T15:55:20.000Z",
+                "updated_at": "2022-06-15T15:55:20.000Z",
+                "deleted": 0,
+                "deleted_at": null
+              }
+            ],
+            "total": 1
+          }
+        }
+      },
+      "Bets.Bet.Response": {
+        "title": "Bets.Bet.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "id": {
+                "format": "int32",
+                "description": "bet id",
+                "type": "integer"
+              },
+              "bet_option": {
+                "description": "bet option",
+                "type": "string"
+              },
+              "sport_id": {
+                "format": "int32",
+                "description": "sport id",
+                "type": "integer"
+              },
+              "sport": {
+                "description": "sport",
+                "type": "string"
+              },
+              "status_id": {
+                "format": "int32",
+                "description": "bet status id",
+                "type": "integer"
+              },
+              "status": {
+                "description": "bet status",
+                "type": "string"
+              },
+              "name": {
+                "description": "bet name",
+                "type": "string"
+              },
+              "event_id": {
+                "format": "int32",
+                "description": "bet event id",
+                "type": "integer"
+              },
+              "event": {
+                "description": "bet event",
+                "type": "string"
+              },
+              "odd": {
+                "format": "int32",
+                "description": "bet odd",
+                "type": "integer"
+              },
+              "result_id": {
+                "format": "int32",
+                "description": "bet result id",
+                "type": "integer"
+              },
+              "result": {
+                "description": "bet result",
+                "type": "string"
+              },
+              "created_at": {
+                "description": "created at",
+                "type": "string"
+              },
+              "updated_at": {
+                "description": "updated at",
+                "type": "string"
+              },
+              "deleted": {
+                "description": "is deleted",
+                "type": "integer"
+              },
+              "deleted_at": {
+                "description": "deleted at",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "id": 1,
+            "bet_option": "Borussia",
+            "sport_id": 1,
+            "sport": "Soccer",
+            "status_id": "1",
+            "status": "ACTIVE",
+            "name": "bet 1",
+            "event_id": "1",
+            "event": "Borussia VS Barcelona",
+            "odd": 1,
+            "result": null,
+            "created_at": "2022-06-15T15:55:20.000Z",
+            "updated_at": "2022-06-15T15:55:20.000Z",
+            "deleted": 0,
+            "deleted_at": null
+          }
+        }
+      },
+      "Bets.Create.Response": {
+        "title": "Bets.Create.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "bet created."
+        }
+      },
+      "Bets.Update.Response": {
+        "title": "Bets.Update.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "bet updated."
+        }
+      },
+      "Bets.Delete.Response": {
+        "title": "Bets.Delete.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "bet deleted."
+        }
+      },
+      "Events.Event": {
+        "title": "Events.Event",
+        "description": "Body to create a event",
+        "required": ["name"],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["ACTIVE", "FINISHED"]
+          }
+        },
+        "example": {
+          "name": "Borussia Dortmund VS Barcelona"
+        },
+        "additionalProperties": false
+      },
+      "Events.Response": {
+        "title": "Events.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "rows": {
+                "description": "data rows",
+                "type": "array"
+              },
+              "total": {
+                "format": "int32",
+                "description": "count total rows",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "rows": [
+              {
+                "id": 1,
+                "name": "Borussia Dortmund VS Barcelona",
+                "status": "ACTIVE"
+              }
+            ],
+            "total": 1
+          }
+        }
+      },
+      "Events.Event.Response": {
+        "title": "Events.Event.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "id": {
+                "format": "int32",
+                "description": "event id",
+                "type": "integer"
+              },
+
+              "name": {
+                "description": "event name",
+                "type": "string"
+              },
+              "status": {
+                "description": "event status",
+                "type": "string"
+              },
+
+              "created_at": {
+                "description": "created at",
+                "type": "string"
+              },
+              "updated_at": {
+                "description": "updated at",
+                "type": "string"
+              },
+              "deleted": {
+                "description": "is deleted",
+                "type": "integer"
+              },
+              "deleted_at": {
+                "description": "deleted at",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "id": 1,
+
+            "name": "Borussia Dortmund VS Barcelona",
+            "status": "ACTIVE",
+            "created_at": "2022-06-15T15:55:20.000Z",
+            "updated_at": "2022-06-15T15:55:20.000Z",
+            "deleted": 0,
+            "deleted_at": null
+          }
+        }
+      },
+      "Events.Create.Response": {
+        "title": "Events.Create.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "event created."
+        }
+      },
+      "Events.Finished.Response": {
+        "title": "Events.Finished.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "event finished."
+        }
+      },
+      "Events.Update.Response": {
+        "title": "Events.Update.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "event updated."
+        }
+      },
+      "Events.Delete.Response": {
+        "title": "Events.Delete.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "event deleted."
+        }
+      },
+      "UserBets.UserBet": {
+        "title": "UserBets.UserBet",
+        "description": "Body to create a user bet",
+        "required": ["user_id", "bet_id", "state_id", "odd", "amount"],
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer"
+          },
+          "bet_id": {
+            "type": "integer"
+          },
+          "state_id": {
+            "type": "string",
+            "enum": ["OPEN", "WON", "LOST"]
+          },
+          "odd": {
+            "type": "integer"
+          },
+          "amount": {
+            "type": "integer"
+          }
+        },
+        "example": {
+          "user_id": 1,
+          "bet_id": 2,
+          "state_id": "OPEN",
+          "odd": 1,
+          "amount": 10
+        },
+        "additionalProperties": false
+      },
+      "UserBets.Response": {
+        "title": "UserBets.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "rows": {
+                "description": "data rows",
+                "type": "array"
+              },
+              "total": {
+                "format": "int32",
+                "description": "count total rows",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "rows": [
+              {
+                "id": 3,
+                "user_id": 1,
+                "first_name": "Daniel",
+                "username": "dani.millan07",
+                "bet_id": 2,
+                "bet": "Borussia Dortmund",
+                "odd": 1,
+                "amount": 10,
+                "state": 3,
+                "created_at": "2022-06-15T17:28:25.000Z",
+                "updated_at": "2022-06-15T17:28:25.000Z",
+                "deleted": 0,
+                "deleted_at": null
+              }
+            ],
+            "total": 1
+          }
+        }
+      },
+      "UserBets.UserBet.Response": {
+        "title": "UserBets.UserBet.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "id": {
+                "format": "int32",
+                "description": "bet id",
+                "type": "integer"
+              },
+              "user_id": {
+                "description": "bet user",
+                "type": "string"
+              },
+              "first_name": {
+                "description": "first name",
+                "type": "string"
+              },
+              "username": {
+                "description": "username",
+                "type": "string"
+              },
+              "bet_id": {
+                "format": "int32",
+                "description": "bet id",
+                "type": "integer"
+              },
+              "bet": {
+                "description": "bet",
+                "type": "string"
+              },
+              "odd": {
+                "format": "int32",
+                "description": "bet odd",
+                "type": "integer"
+              },
+              "amount": {
+                "format": "int32",
+                "description": "bet amount",
+                "type": "integer"
+              },
+              "state": {
+                "description": "bet state",
+                "type": "string"
+              },
+              "created_at": {
+                "description": "created at",
+                "type": "string"
+              },
+              "updated_at": {
+                "description": "updated at",
+                "type": "string"
+              },
+              "deleted": {
+                "description": "is deleted",
+                "type": "integer"
+              },
+              "deleted_at": {
+                "description": "deleted at",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "id": 3,
+            "user_id": 1,
+            "first_name": "Daniel",
+            "username": "dani.millan07",
+            "bet_id": 2,
+            "bet": "Borussia Dortmund",
+            "odd": 1,
+            "amount": 10,
+            "state": 3,
+            "created_at": "2022-06-15T17:28:25.000Z",
+            "updated_at": "2022-06-15T17:28:25.000Z",
+            "deleted": 0,
+            "deleted_at": null
+          }
+        }
+      },
+      "UserBets.UserBets.Filter.Response": {
+        "title": "UserBets.UserBets.Filter.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "object",
+            "properties": {
+              "id": {
+                "format": "int32",
+                "description": "bet id",
+                "type": "integer"
+              },
+              "user_id": {
+                "description": "bet user",
+                "type": "string"
+              },
+              "first_name": {
+                "description": "first name",
+                "type": "string"
+              },
+              "username": {
+                "description": "username",
+                "type": "string"
+              },
+              "bet_id": {
+                "format": "int32",
+                "description": "bet id",
+                "type": "integer"
+              },
+              "bet": {
+                "description": "bet",
+                "type": "string"
+              },
+              "odd": {
+                "format": "int32",
+                "description": "bet odd",
+                "type": "integer"
+              },
+              "amount": {
+                "format": "int32",
+                "description": "bet amount",
+                "type": "integer"
+              },
+              "state": {
+                "description": "bet state",
+                "type": "string"
+              },
+              "created_at": {
+                "description": "created at",
+                "type": "string"
+              },
+              "updated_at": {
+                "description": "updated at",
+                "type": "string"
+              },
+              "deleted": {
+                "description": "is deleted",
+                "type": "integer"
+              },
+              "deleted_at": {
+                "description": "deleted at",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": {
+            "id": 3,
+            "user_id": 1,
+            "first_name": "Daniel",
+            "username": "dani.millan07",
+            "bet_id": 2,
+            "bet": "Borussia Dortmund",
+            "odd": 1,
+            "amount": 10,
+            "state": 3,
+            "created_at": "2022-06-15T17:28:25.000Z",
+            "updated_at": "2022-06-15T17:28:25.000Z",
+            "deleted": 0,
+            "deleted_at": null
+          }
+        }
+      },
+      "UserBets.Create.Response": {
+        "title": "UserBets.Create.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "user bet created."
+        }
+      },
+      "UserBets.Update.Response": {
+        "title": "UserBets.Update.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "user bet updated."
+        }
+      },
+      "UserBets.Delete.Response": {
+        "title": "UserBets.Delete.Response",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "status": {
+            "format": "int32",
+            "description": "status from response",
+            "type": "integer"
+          },
+          "data": {
+            "description": "data from response",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "data": "user bet deleted."
         }
       },
       "Response": {

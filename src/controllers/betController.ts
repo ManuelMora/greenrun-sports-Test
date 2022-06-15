@@ -10,7 +10,7 @@ const debug = debugLib('greenrun-sports:betController');
 
 betController.post(
   '/',
-  //[validator.validate('post', '/bets')],
+  [validator.validate('post', '/bets')],
   async (request: Request, response: Response) => {
     try {
       const bet: IBet = request.body;
@@ -27,15 +27,14 @@ betController.post(
 
 betController.put(
   '/:id',
-  //[validator.validate('put', '/bets/{id}')],
+  [validator.validate('put', '/bets/{id}')],
   async (request: Request, response: Response) => {
     try {
       const bet: IBet = request.body;
       bet.id = Number(request.params.id);
       bet.status = EBetStatus[bet.status_id as keyof typeof EBetStatus];
       delete bet.status_id;
-      bet.result &&
-        (bet.result = EBetResult[bet.result_id as keyof typeof EBetResult]);
+      bet.result = EBetResult[bet.result_id as keyof typeof EBetResult];
       delete bet.result_id;
       debug('updated bet with id: %s', bet.id);
       const betServiceResult = await BetService.updateBet(bet);
@@ -48,7 +47,7 @@ betController.put(
 
 betController.get(
   '/',
-  //[validator.validate('get', '/bets')],
+  [validator.validate('get', '/bets')],
   async (request: Request, response: Response) => {
     try {
       const betServiceResult = await BetService.getBets();
@@ -61,7 +60,7 @@ betController.get(
 
 betController.get(
   '/:id',
-  //[validator.validate('get', '/bets/{id}')],
+  [validator.validate('get', '/bets/{id}')],
   async (request: Request, response: Response) => {
     try {
       const betId = Number(request.params.id);
@@ -75,7 +74,7 @@ betController.get(
 
 betController.delete(
   '/:id',
-  //[validator.validate('delete', '/bets/{id}')],
+  [validator.validate('delete', '/bets/{id}')],
   async (request: Request, response: Response) => {
     try {
       const betId = Number(request.params.id);
