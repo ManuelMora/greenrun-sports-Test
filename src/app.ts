@@ -4,6 +4,7 @@ import logger from 'morgan';
 import config from './config';
 const swaggerDocument = require('../static/greenrun-sports-V1-OAS.json');
 // Controllers
+import authController from './controllers/authController';
 import betController from './controllers/betController';
 import cityController from './controllers/cityController';
 import countryController from './controllers/countryController';
@@ -56,6 +57,7 @@ app.use(
 );
 app.get('/', (req: Request, res: Response) => res.redirect('/api-docs'));
 
+app.use(`${fullApiPath}/auth`, authController);
 app.use(`${fullApiPath}/bets`, betController);
 app.use(`${fullApiPath}/cities`, cityController);
 app.use(`${fullApiPath}/countries`, countryController);

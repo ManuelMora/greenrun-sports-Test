@@ -2,8 +2,10 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import sinon from 'sinon';
 import app from '../../src/app';
+import MiddlewareApi from '../../src/middlewares/middlewareApi';
 import IBet from '../../src/models/IBet';
 import IResponse from '../../src/models/IResponse';
+import JwtService from '../../src/services/auth/jwtService';
 import BetService from '../../src/services/betService';
 
 chai.use(chaiHttp);
@@ -72,12 +74,22 @@ describe('betController', () => {
         sinon.restore();
     });
 
+    beforeEach(() => {
+        sinon.stub(JwtService, 'validateToken').callsFake(() => {
+            return Promise<void>.resolve({ id: 1 });
+        });
+        sinon.stub(MiddlewareApi, 'validateSession').callsFake(() => {
+            return Promise<void>.resolve();
+        });
+    });
+
     it('should request post bet', (done) => {
         sinon.stub(BetService, 'createBet').callsFake(() => {
             return Promise<IResponse>.resolve({ status: 200, data: 'bet created.' })
         });
         chai.request(app)
             .post('/V1/bets')
+            .set('Authorization', 'Bearer 123')
             .send(mockbet)
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
@@ -91,6 +103,7 @@ describe('betController', () => {
         });
         chai.request(app)
             .post('/V1/bets')
+            .set('Authorization', 'Bearer 123')
             .send(mockbet)
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
@@ -104,6 +117,7 @@ describe('betController', () => {
         });
         chai.request(app)
             .put('/V1/bets/1')
+            .set('Authorization', 'Bearer 123')
             .send(mockbet)
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
@@ -117,6 +131,7 @@ describe('betController', () => {
         });
         chai.request(app)
             .put('/V1/bets/1')
+            .set('Authorization', 'Bearer 123')
             .send(mockbet)
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
@@ -130,6 +145,7 @@ describe('betController', () => {
         });
         chai.request(app)
             .get('/V1/bets')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -142,6 +158,7 @@ describe('betController', () => {
         });
         chai.request(app)
             .get('/V1/bets')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -154,6 +171,7 @@ describe('betController', () => {
         });
         chai.request(app)
             .get('/V1/bets/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -166,6 +184,7 @@ describe('betController', () => {
         });
         chai.request(app)
             .get('/V1/bets/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -178,6 +197,7 @@ describe('betController', () => {
         });
         chai.request(app)
             .delete('/V1/bets/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -190,6 +210,7 @@ describe('betController', () => {
         });
         chai.request(app)
             .delete('/V1/bets/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();

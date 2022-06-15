@@ -17,4 +17,5 @@ export default interface IUser {
     updated_at?: Date;
     deleted?: boolean;
     deleted_at?: Date;
+    password?: string;
 }

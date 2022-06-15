@@ -3,6 +3,7 @@ import debugLib from 'debug';
 import ITransaction, { ETransactionCategory } from '../models/ITransaction';
 import TransactionService from '../services/transactionService';
 import OpenApiValidatorProvider from '../utils/OpenApiValidator';
+import MiddlewareApi from '../middlewares/middlewareApi';
 
 const transactionController = Router();
 const validator = OpenApiValidatorProvider.getValidator();
@@ -10,13 +11,13 @@ const debug = debugLib('greenrun-sports:transactionController');
 
 transactionController.post(
   '/',
-  [validator.validate('post', '/transactions')],
+  [MiddlewareApi.validateSession, validator.validate('post', '/transactions')],
   async (request: Request, response: Response) => {
     try {
       const transaction: ITransaction = request.body;
       transaction.category =
         ETransactionCategory[
-          transaction.category_id as keyof typeof ETransactionCategory
+        transaction.category_id as keyof typeof ETransactionCategory
         ];
       delete transaction.category_id;
       debug('created transaction by user: %s', transaction.user_id);
@@ -33,14 +34,17 @@ transactionController.post(
 
 transactionController.put(
   '/:id',
-  [validator.validate('put', '/transactions/{id}')],
+  [
+    MiddlewareApi.validateSession,
+    validator.validate('put', '/transactions/{id}'),
+  ],
   async (request: Request, response: Response) => {
     try {
       const transaction: ITransaction = request.body;
       transaction.id = Number(request.params.id);
       transaction.category =
         ETransactionCategory[
-          transaction.category_id as keyof typeof ETransactionCategory
+        transaction.category_id as keyof typeof ETransactionCategory
         ];
       delete transaction.category_id;
       debug('updated transaction with id: %s', transaction.id);
@@ -57,7 +61,7 @@ transactionController.put(
 
 transactionController.get(
   '/',
-  [validator.validate('get', '/transactions')],
+  [MiddlewareApi.validateSession, validator.validate('get', '/transactions')],
   async (request: Request, response: Response) => {
     try {
       const transactionServiceResult =
@@ -73,7 +77,10 @@ transactionController.get(
 
 transactionController.get(
   '/:id',
-  [validator.validate('get', '/transactions/{id}')],
+  [
+    MiddlewareApi.validateSession,
+    validator.validate('get', '/transactions/{id}'),
+  ],
   async (request: Request, response: Response) => {
     try {
       const transactionId = Number(request.params.id);
@@ -90,7 +97,10 @@ transactionController.get(
 
 transactionController.get(
   '/user/:id',
-  [validator.validate('get', '/transactions/user/{id}')],
+  [
+    MiddlewareApi.validateSession,
+    validator.validate('get', '/transactions/user/{id}'),
+  ],
   async (request: Request, response: Response) => {
     try {
       const userId = Number(request.params.id);
@@ -107,7 +117,10 @@ transactionController.get(
 
 transactionController.delete(
   '/:id',
-  [validator.validate('delete', '/transactions/{id}')],
+  [
+    MiddlewareApi.validateSession,
+    validator.validate('delete', '/transactions/{id}'),
+  ],
   async (request: Request, response: Response) => {
     try {
       const transactionId = Number(request.params.id);

@@ -36,7 +36,26 @@ export default class UserService {
                 const usersList = await databaseClient
                     .from('users')
                     .where({ deleted: false })
-                    .select();
+                    .select(
+                        'id',
+                        'role',
+                        'first_name',
+                        'last_name',
+                        'phone',
+                        'email',
+                        'username',
+                        'address',
+                        'gender',
+                        'birth_date',
+                        'city',
+                        'category',
+                        'document_id',
+                        'user_state',
+                        'created_at',
+                        'updated_at',
+                        'deleted',
+                        'deleted_at'
+                    );
                 resolve({
                     status: 200,
                     data: { rows: usersList, total: usersList.length },
@@ -54,7 +73,26 @@ export default class UserService {
                 const userMatch = await databaseClient
                     .from('users')
                     .where({ id })
-                    .select()
+                    .select(
+                        'id',
+                        'role',
+                        'first_name',
+                        'last_name',
+                        'phone',
+                        'email',
+                        'username',
+                        'address',
+                        'gender',
+                        'birth_date',
+                        'city',
+                        'category',
+                        'document_id',
+                        'user_state',
+                        'created_at',
+                        'updated_at',
+                        'deleted',
+                        'deleted_at'
+                    )
                     .limit(1);
                 resolve({ status: 200, data: userMatch[0] });
             } catch (error: any) {

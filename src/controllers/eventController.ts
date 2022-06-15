@@ -3,6 +3,7 @@ import debugLib from 'debug';
 import IEvent, { EEventStatus } from '../models/IEvent';
 import EventService from '../services/eventService';
 import OpenApiValidatorProvider from '../utils/OpenApiValidator';
+import MiddlewareApi from '../middlewares/middlewareApi';
 
 const eventController = Router();
 const validator = OpenApiValidatorProvider.getValidator();
@@ -10,7 +11,7 @@ const debug = debugLib('greenrun-sports:eventController');
 
 eventController.post(
     '/',
-    [validator.validate('post', '/events')],
+    [MiddlewareApi.validateSession, validator.validate('post', '/events')],
     async (request: Request, response: Response) => {
         try {
             const event: IEvent = request.body;
@@ -25,7 +26,7 @@ eventController.post(
 
 eventController.put(
     '/:id',
-    [validator.validate('put', '/events/{id}')],
+    [MiddlewareApi.validateSession, validator.validate('put', '/events/{id}')],
     async (request: Request, response: Response) => {
         try {
             const event: IEvent = request.body;
@@ -42,7 +43,7 @@ eventController.put(
 
 eventController.get(
     '/',
-    [validator.validate('get', '/events')],
+    [MiddlewareApi.validateSession, validator.validate('get', '/events')],
     async (request: Request, response: Response) => {
         try {
             const eventServiceResult = await EventService.getEvents();
@@ -55,7 +56,7 @@ eventController.get(
 
 eventController.get(
     '/:id',
-    [validator.validate('get', '/events/{id}')],
+    [MiddlewareApi.validateSession, validator.validate('get', '/events/{id}')],
     async (request: Request, response: Response) => {
         try {
             const eventId = Number(request.params.id);
@@ -69,7 +70,10 @@ eventController.get(
 
 eventController.put(
     '/status/:id',
-    [validator.validate('put', '/events/status/{id}')],
+    [
+        MiddlewareApi.validateSession,
+        validator.validate('put', '/events/status/{id}'),
+    ],
     async (request: Request, response: Response) => {
         try {
             const eventId = Number(request.params.id);
@@ -84,7 +88,7 @@ eventController.put(
 
 eventController.delete(
     '/:id',
-    [validator.validate('delete', '/events/{id}')],
+    [MiddlewareApi.validateSession, validator.validate('delete', '/events/{id}')],
     async (request: Request, response: Response) => {
         try {
             const eventId = Number(request.params.id);

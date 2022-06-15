@@ -2,8 +2,10 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import sinon from 'sinon';
 import app from '../../src/app';
+import MiddlewareApi from '../../src/middlewares/middlewareApi';
 import IModule from '../../src/models/IModule';
 import IResponse from '../../src/models/IResponse';
+import JwtService from '../../src/services/auth/jwtService';
 import ModuleService from '../../src/services/moduleService';
 
 chai.use(chaiHttp);
@@ -44,12 +46,22 @@ describe('ModuleController', () => {
         sinon.restore();
     });
 
+    beforeEach(() => {
+        sinon.stub(JwtService, 'validateToken').callsFake(() => {
+            return Promise<void>.resolve({ id: 1 });
+        });
+        sinon.stub(MiddlewareApi, 'validateSession').callsFake(() => {
+            return Promise<void>.resolve();
+        });
+    });
+
     it('should request post module', (done) => {
         sinon.stub(ModuleService, 'createModule').callsFake(() => {
             return Promise<IResponse>.resolve({ status: 200, data: 'Module created.' })
         });
         chai.request(app)
             .post('/V1/modules')
+            .set('Authorization', 'Bearer 123')
             .send(mockModule)
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
@@ -63,6 +75,7 @@ describe('ModuleController', () => {
         });
         chai.request(app)
             .post('/V1/modules')
+            .set('Authorization', 'Bearer 123')
             .send(mockModule)
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
@@ -76,6 +89,7 @@ describe('ModuleController', () => {
         });
         chai.request(app)
             .put('/V1/modules/1')
+            .set('Authorization', 'Bearer 123')
             .send(mockModule)
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
@@ -89,6 +103,7 @@ describe('ModuleController', () => {
         });
         chai.request(app)
             .put('/V1/modules/1')
+            .set('Authorization', 'Bearer 123')
             .send(mockModule)
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
@@ -102,6 +117,7 @@ describe('ModuleController', () => {
         });
         chai.request(app)
             .get('/V1/modules')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -114,6 +130,7 @@ describe('ModuleController', () => {
         });
         chai.request(app)
             .get('/V1/modules')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -126,6 +143,7 @@ describe('ModuleController', () => {
         });
         chai.request(app)
             .get('/V1/modules/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -138,6 +156,7 @@ describe('ModuleController', () => {
         });
         chai.request(app)
             .get('/V1/modules/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
@@ -150,6 +169,7 @@ describe('ModuleController', () => {
         });
         chai.request(app)
             .delete('/V1/modules/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(200);
                 done();
@@ -162,6 +182,7 @@ describe('ModuleController', () => {
         });
         chai.request(app)
             .delete('/V1/modules/1')
+            .set('Authorization', 'Bearer 123')
             .end((_err, response) => {
                 expect(response.status).to.equals(500);
                 done();
